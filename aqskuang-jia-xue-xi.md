@@ -1,4 +1,20 @@
-![](file:///C:\Users\hand\AppData\Roaming\Tencent\Users\1677931994\TIM\WinTemp\RichOle\R%LCW$V23TK8ARL8Y1_]_8C.png)
+
+
+
+
+
+
+![](/assets/1.png)
+
+
+
+
+
+
+
+
+
+
 
 AbstractQueuedSynchronizer 这个类如上图所示，tail代表尾部节点，head代表头部节点，state属性表示有无线程占有。
 
