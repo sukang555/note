@@ -82,10 +82,10 @@ static final class FairSync extends Sync {
 protected final boolean tryAcquire(int acquires) {
             //获取当前线程
             final Thread current = Thread.currentThread();
-            
+
             //获取锁的state的值
             int c = getState();
-            
+
             //当state==0时也就是初始化状态。
             if (c == 0) {
                 if (!hasQueuedPredecessors() &&
