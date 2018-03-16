@@ -80,3 +80,60 @@ static final class FairSync extends Sync {
 
 
 
+```java
+protected final boolean tryAcquire(int acquires) {
+            //获取当前线程
+            final Thread current = Thread.currentThread();
+            int c = getState();
+            if (c == 0) {
+                if (!hasQueuedPredecessors() &&
+                    compareAndSetState(0, acquires)) {
+                    setExclusiveOwnerThread(current);
+                    return true;
+                }
+            }
+            else if (current == getExclusiveOwnerThread()) {
+                int nextc = c + acquires;
+                if (nextc < 0)
+                    throw new Error("Maximum lock count exceeded");
+                setState(nextc);
+                return true;
+            }
+            return false;
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
