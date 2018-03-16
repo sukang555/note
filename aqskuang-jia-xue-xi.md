@@ -1,18 +1,13 @@
 
-
 ---
 
 AQS类图结构
 
- ![](/assets/2.png)              
+![](/assets/2.png)
 
+ReentrantLock类图结构
 
-
-   ReentrantLock类图结构
-
-![](/assets/3.png)        
-
-
+![](/assets/3.png)
 
 一般我们在程序中这样使用reentrantLock对象
 
@@ -55,4 +50,58 @@ abstract static class Sync extends AbstractQueuedSynchronizer
 ```
 
 首先当我们调用new ReentrantLock\(\)时，构造器中给我们返回了NonfairSync非公平锁对象或者是公平锁对象FairSync;
+
+然后我们调用lock\(\)方法。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
