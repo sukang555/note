@@ -1,22 +1,18 @@
 
 
+---
+
+AQS类图结构
+
+ ![](/assets/2.png)              
 
 
 
+   ReentrantLock类图结构
 
-![](/assets/1.png)
-
-
-
+![](/assets/3.png)        
 
 
-
-
-
-
-
-
-AbstractQueuedSynchronizer 这个类如上图所示，tail代表尾部节点，head代表头部节点，state属性表示有无线程占有。
 
 一般我们在程序中这样使用reentrantLock对象
 
