@@ -186,6 +186,12 @@ private Node addWaiter(Node mode) {
         //此时new了node，mode为null 这里我们看一下这个构造器
         Node node = new Node(Thread.currentThread(), mode);
         
+        //此时mode为null，thread就是当前线程T2
+            Node(Thread thread, Node mode) {     // Used by addWaiter
+                    this.nextWaiter = mode;
+                    this.thread = thread;
+        }
+        
         //此时的tail同样为null，那么程序不会进入这个判断  
         Node pred = tail;
         if (pred != null) {
@@ -201,14 +207,24 @@ private Node addWaiter(Node mode) {
         return node;
 }
 
+private Node enq(final Node node) {
 
-//此时mode为null，thread就是当前线程T2
-Node(Thread thread, Node mode) {     // Used by addWaiter
-            this.nextWaiter = mode;
-            this.thread = thread;
+        //此时T2进入这里，首先进入一个死循环这种方式编译出来的指令要比while少。
+        for (;;) {
+        //这个里 tail为null，传进来的node就是刚刚new出来的节点对象。
+            Node t = tail;
+            if (t == null) { // Must initialize
+                if (compareAndSetHead(new Node()))
+                    tail = head;
+            } else {
+                node.prev = t;
+                if (compareAndSetTail(t, node)) {
+                    t.next = node;
+                    return t;
+                }
+            }
+        }
 }
-
-
 
 
 
