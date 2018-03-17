@@ -232,7 +232,7 @@ final boolean acquireQueued(final Node node, int arg) {
             for (;;) {
                 final Node p = node.predecessor();
                 
-                //如果head = p 这里也就是true
+                //如果head == p 这里也就是true
                 if (p == head && tryAcquire(arg)) {
                     setHead(node);
                     p.next = null; // help GC
