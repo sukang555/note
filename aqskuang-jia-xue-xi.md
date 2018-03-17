@@ -9,6 +9,18 @@ ReentrantLock类图结构
 
 ![](/assets/3.png)
 
+
+
+![](/assets/5.png)
+
+
+
+
+
+
+
+
+
 一般我们在程序中这样使用reentrantLock对象
 
 ```java
@@ -90,10 +102,66 @@ protected final boolean tryAcquire(int acquires) {
             if (c == 0) {
 
                 //t1线程走到这里，正常情况下前一个判断返回的是false,接下来就会进行CAS对state的值进行加1操作。
-                //如果CAS成功的话返回true那么锁的属性exclusiveOwnerThread的值就是当前获取到锁的线程,也就是t1。
-                //那么此时
+                //如果CAS成功的话返回true那么FairSync的属性exclusiveOwnerThread的值就是当前获取到锁的线程,也就是t1。
+                //FairSync的state的值经过CAS操作已经变为1了。现在我们来看一下这个判断条里的三个方法。
 
                 if (!hasQueuedPredecessors() && compareAndSetState(0, acquires)) {
+                    setExclusiveOwnerThread(current);
+                    return true;
+                }
+            }
+
+            //如果FairSync的state不等于0的话再判断一下当前线程是否已经获取过锁了，如果已经或去过那么就state+1，这也就是重入锁。返回true；
+
+            else if (current == getExclusiveOwnerThread()) {
+                int nextc = c + acquires;
+                if (nextc < 0)
+                    throw new Error("Maximum lock count exceeded");
+                setState(nextc);
+                return true;
+            }
+            //如果所有条件都不满足的话那么返回false;
+            return false;
+}
+
+  public final boolean hasQueuedPredecessors() {
+        //tail代表尾部节点，head代表头部节点。此时FairSync的这两个属性都为null；因此第一次返回false；
+        Node t = tail; 
+        Node h = head;
+        Node s;
+        return h != t &&
+            ((s = h.next) == null || s.thread != Thread.currentThread());
+ }
+
+  protected final boolean compareAndSetState(int expect, int update) {
+        return unsafe.compareAndSwapInt(this, stateOffset, expect, update);
+ } 
+
+ protected final void setExclusiveOwnerThread(Thread thread) {
+        exclusiveOwnerThread = thread;
+ }
+```
+
+t1线程获取完锁以后接下来我们来分析t2线程，现在再次回到之前的方法。
+
+```java
+public final void acquire(int arg) {
+
+    //t2线程此时也走到这里。同样先进入tryAcquire方法。
+    if (!tryAcquire(arg) && acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+        selfInterrupt();
+}
+
+
+protected final boolean tryAcquire(int acquires) {
+            //同样获取当前线程 T2
+            final Thread current = Thread.currentThread();
+            //获取T2线程的state的值，此时获取的state的值大于0 我们之前分析过T1，T1线程获取完线程以后会将state的值通过cas方式加1操作，
+            //如果是重入的话进行累加操作，每获取一次就累加。所以这个方法会返回false;
+            int c = getState();
+            if (c == 0) {
+                if (!hasQueuedPredecessors() &&
+                    compareAndSetState(0, acquires)) {
                     setExclusiveOwnerThread(current);
                     return true;
                 }
@@ -106,7 +174,45 @@ protected final boolean tryAcquire(int acquires) {
                 return true;
             }
             return false;
+        }
 }
+        //if (!tryAcquire(arg) && acquireQueued(addWaiter(Node.EXCLUSIVE), arg))  selfInterrupt();
+
+        //我们又回到这个方法，T2前一个判断返回的是false;那么程序会执行addWaiter()方法,并将返回结果当作参数继续执行acquireQueued()方法；
+        //现在我们看Node的属性
+
+private Node addWaiter(Node mode) {
+
+        //此时new了node，mode为null 这里我们看一下这个构造器
+        Node node = new Node(Thread.currentThread(), mode);
+        
+        //此时的tail同样为null，那么程序不会进入这个判断  
+        Node pred = tail;
+        if (pred != null) {
+            node.prev = pred;
+            if (compareAndSetTail(pred, node)) {
+                pred.next = node;
+                return node;
+            }
+        }
+        
+        //此时T2会进入这个方法
+        enq(node);
+        return node;
+}
+
+
+//此时mode为null，thread就是当前线程T2
+Node(Thread thread, Node mode) {     // Used by addWaiter
+            this.nextWaiter = mode;
+            this.thread = thread;
+}
+
+
+
+
+
+
 ```
 
 
