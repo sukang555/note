@@ -173,7 +173,7 @@ protected final boolean tryAcquire(int acquires) {
 
 private Node addWaiter(Node mode) {
 
-        //此时new了node，mode为null 这里我们看一下这个构造器
+        //此时new了node，mode为null 这里我们看一下这个构造器，我们把它命名为node-1
         Node node = new Node(Thread.currentThread(), mode);
 
         //此时mode为null，thread就是当前线程T2
@@ -202,14 +202,19 @@ private Node enq(final Node node) {
         //此时T2进入这里，首先进入一个死循环这种方式编译出来的指令要比while少。
         for (;;) {
         //这个里 tail为null，传进来的node就是刚刚new出来的节点对象。然后会进入第一个判断，这里通过cas操作给FairSync对象的head赋值，
+        //此时又new了一个空的Node作为FairSync的head节点。再将head赋值给tail节点。我们把它命名为node-0
+        //然后程序又进行下一次循环，t！= null 
             Node t = tail;
             if (t == null) { // Must initialize
                 if (compareAndSetHead(new Node()))
                     tail = head;
             } else {
+            //第二次循环会进入这个判断内，这个node就是t2被包装成node的那个节点，也就是前边提到的node-1
+            //然后node-1的前一个就是node-0,再次通过cas操作把tail赋值为node-1，node-0的下一个就是node-1，FairSync对象就有了一个链表，
                 node.prev = t;
                 if (compareAndSetTail(t, node)) {
                     t.next = node;
+                    //这里将node-1返回
                     return t;
                 }
             }
