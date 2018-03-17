@@ -169,7 +169,6 @@ protected final boolean tryAcquire(int acquires) {
         //if (!tryAcquire(arg) && acquireQueued(addWaiter(Node.EXCLUSIVE), arg))  selfInterrupt();
 
         //我们又回到这个方法，T2前一个判断返回的是false;那么程序会执行addWaiter()方法,并将返回结果当作参数继续执行acquireQueued()方法；
-        //现在我们看Node的属性
 
 private Node addWaiter(Node mode) {
 
@@ -194,6 +193,7 @@ private Node addWaiter(Node mode) {
 
         //此时T2会进入这个方法
         enq(node);
+        //这里将node-1返回，再回到之前的方法
         return node;
 }
 
@@ -214,12 +214,44 @@ private Node enq(final Node node) {
                 node.prev = t;
                 if (compareAndSetTail(t, node)) {
                     t.next = node;
-                    //这里将node-1返回
+                    //这里将node-1返回,再回到之前的方法
                     return t;
                 }
             }
         }
 }
+
+//T2线程将addWaiter返回的node-1传入这里，arg=1
+final boolean acquireQueued(final Node node, int arg) {
+        boolean failed = true;
+        try {
+            boolean interrupted = false;
+            
+            //这里node.predecessor()将node的前一个返回，这里的值为 node-0，此时head == node-0
+            
+            for (;;) {
+                final Node p = node.predecessor();
+                
+                //如果head = p 这里也就是true
+                if (p == head && tryAcquire(arg)) {
+                    setHead(node);
+                    p.next = null; // help GC
+                    failed = false;
+                    return interrupted;
+                }
+                if (shouldParkAfterFailedAcquire(p, node) &&
+                    parkAndCheckInterrupt())
+                    interrupted = true;
+            }
+        } finally {
+            if (failed)
+                cancelAcquire(node);
+        }
+}
+
+
+
+
 ```
 
 T2线程首次进入enq()方法时在第一次循环时，FairSync对象的属性状态![](/assets/import.pngHead == tail=new Node%28%29)
