@@ -70,17 +70,6 @@ private void ensureExplicitCapacity(int minCapacity) {
             grow(minCapacity);
 }
 
-
-1.初始化时 ： 数组为{} 因此数组长度为0；
-
-2.第一次调用add时，
-
-
-
-
-
-
-
  private void grow(int minCapacity) {
         // overflow-conscious code
         int oldCapacity = elementData.length;
@@ -93,6 +82,17 @@ private void ensureExplicitCapacity(int minCapacity) {
         elementData = Arrays.copyOf(elementData, newCapacity);
 }
 ```
+
+1.初始化时 ： 数组为{} 因此数组长度为0；  
+
+2.第一次调用add时，我需要的数组容量为1，此时数组的长度为0 因此需要扩容操作
+
+
+
+
+
+
+
 
 
 
