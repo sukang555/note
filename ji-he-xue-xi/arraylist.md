@@ -78,12 +78,30 @@ private void ensureExplicitCapacity(int minCapacity) {
         //新的长度 = old + (int)(old/2)
         
         int newCapacity = oldCapacity + (oldCapacity >> 1);
+        
+        //如果计算出来的新的容量小于所需的最小容量的话新的就被赋值为所需的最小容量。
         if (newCapacity - minCapacity < 0)
             newCapacity = minCapacity;
+            
+        // 如果计算出来的新的容量大于int的最大值-8的话，走huge方法；所需最小容量大于int最大值-8就是int最大值，否则就是int最大值-8   
         if (newCapacity - MAX_ARRAY_SIZE > 0)
             newCapacity = hugeCapacity(minCapacity);
-        // minCapacity is usually close to size, so this is a win:
+            
+        //重新创建一个新容量的数组将旧的数组内容copy进来并赋值给当前list数组。
         elementData = Arrays.copyOf(elementData, newCapacity);
+}
+
+
+
+
+
+
+private static int hugeCapacity(int minCapacity) {
+        if (minCapacity < 0) // overflow
+            throw new OutOfMemoryError();
+        return (minCapacity > MAX_ARRAY_SIZE) ?
+            Integer.MAX_VALUE :
+            MAX_ARRAY_SIZE;
 }
 ```
 
