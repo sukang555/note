@@ -113,3 +113,10 @@ private static int hugeCapacity(int minCapacity) {
 
 3.当第11次调用add方法时 需要的容量为11 此时就会进入扩容操作，新的容量为 10 + (int)(10/2) = 15;
 
+
+```
+
+```
+
+
+
