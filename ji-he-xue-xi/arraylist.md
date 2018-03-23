@@ -74,19 +74,19 @@ private void ensureExplicitCapacity(int minCapacity) {
         // overflow-conscious code
         //获取旧的数组的长度
         int oldCapacity = elementData.length;
-        
+
         //新的长度 = old + (int)(old/2)
-        
+
         int newCapacity = oldCapacity + (oldCapacity >> 1);
-        
+
         //如果计算出来的新的容量小于所需的最小容量的话新的就被赋值为所需的最小容量。
         if (newCapacity - minCapacity < 0)
             newCapacity = minCapacity;
-            
+
         // 如果计算出来的新的容量大于int的最大值-8的话，走huge方法；所需最小容量大于int最大值-8就是int最大值，否则就是int最大值-8   
         if (newCapacity - MAX_ARRAY_SIZE > 0)
             newCapacity = hugeCapacity(minCapacity);
-            
+
         //重新创建一个新容量的数组将旧的数组内容copy进来并赋值给当前list数组。
         elementData = Arrays.copyOf(elementData, newCapacity);
 }
@@ -105,16 +105,11 @@ private static int hugeCapacity(int minCapacity) {
 }
 ```
 
-1.初始化时 ： 数组为{} 因此数组长度为0；  
+1.初始化时 ： 数组为{} 因此数组长度为0；
 
-2.第一次调用add时，我需要的数组容量为1，此时数组的长度为0 因此需要扩容操作
+2.第一次调用add时，我需要的数组容量为1，此时数组的长度为0 因此需要扩容操作，第一次扩容出来的长度为默认值10;
 
+![](file:///C:\Users\hand\AppData\Roaming\Tencent\Users\1677931994\TIM\WinTemp\RichOle\C]9}D[44JW184%D%29MDB~BHW.png)
 
-
-
-
-
-
-
-
+3.当第
 
