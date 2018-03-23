@@ -120,6 +120,14 @@ private static int hugeCapacity(int minCapacity) {
 
         return elementData(index);
 }
+
+ private void rangeCheck(int index) {
+        if (index >= size)
+            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+}
+
+
+
 ```
 
 
