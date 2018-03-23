@@ -111,5 +111,5 @@ private static int hugeCapacity(int minCapacity) {
 
 ![](file:///C:\Users\hand\AppData\Roaming\Tencent\Users\1677931994\TIM\WinTemp\RichOle\C]9}D[44JW184%D%29MDB~BHW.png)
 
-3.当第
+3.当第11次调用add方法时 需要的容量为11 此时就会进入扩容操作，新的容量为 10 + (int)(10/2) = 15;
 
