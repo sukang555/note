@@ -126,9 +126,7 @@ private static int hugeCapacity(int minCapacity) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
 }
 
-
-
 ```
 
-
+总结：ArrayList 第一次扩容的初始化大小为10,扩容策略为 旧值 + (int)(旧值/2)
 
