@@ -72,7 +72,11 @@ private void ensureExplicitCapacity(int minCapacity) {
 
  private void grow(int minCapacity) {
         // overflow-conscious code
+        //获取旧的数组的长度
         int oldCapacity = elementData.length;
+        
+        //新的长度 = old + (int)(old/2)
+        
         int newCapacity = oldCapacity + (oldCapacity >> 1);
         if (newCapacity - minCapacity < 0)
             newCapacity = minCapacity;
