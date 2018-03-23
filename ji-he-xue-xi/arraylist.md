@@ -66,9 +66,6 @@ private void ensureExplicitCapacity(int minCapacity) {
 
         //如果 elementData.length < minCapacity 
         //当前数组的长度 小于 完成add所需要的最小容量 的话就需要进行扩容操作。也就是说数组没有足够的空间来存放数据了。
-        
-        //如果第一次调用add的话 当前数组的长度为0，容量值为10;
-
         if (minCapacity - elementData.length > 0)
             grow(minCapacity);
 }
