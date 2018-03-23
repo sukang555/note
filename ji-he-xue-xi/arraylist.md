@@ -57,7 +57,7 @@ arrayList.get(0);
         if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
             minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);
         }
-       //数组没满之前minCapacity容量都是默认值10，数组满的话最小容量值就是当前size+1的；
+       //minCapacity可以理解为需要完成这次add所需要的最小容量。
         ensureExplicitCapacity(minCapacity);
 }
 
@@ -65,7 +65,7 @@ private void ensureExplicitCapacity(int minCapacity) {
         modCount++;
 
         //如果 elementData.length < minCapacity 
-        //当前数组的长度 小于 最小容量 的话就需要进行扩容操作
+        //当前数组的长度 小于 完成add所需要的最小容量 的话就需要进行扩容操作。也就是说数组没有足够的空间来存放数据了。
         
         //如果第一次调用add的话 当前数组的长度为0，容量值为10;
 
@@ -74,7 +74,9 @@ private void ensureExplicitCapacity(int minCapacity) {
 }
 
 
+1.初始化时 ： 数组为{} 因此数组长度为0；
 
+2.第一次调用add时，
 
 
 
