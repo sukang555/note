@@ -128,5 +128,5 @@ private static int hugeCapacity(int minCapacity) {
 
 ```
 
-总结：ArrayList 第一次扩容的初始化大小为10,扩容策略为 旧值 + (int)(旧值/2)
+总结：ArrayList 第一次扩容的初始化大小为10,扩容策略为 旧值 + (int)(旧值/2),在使用ArratList的时候指定合适的容量可以减少扩容次数；
 
