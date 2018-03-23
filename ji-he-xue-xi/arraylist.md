@@ -59,7 +59,7 @@ arrayList.get(0);
         if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
             minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);
         }
-       //数组没满之前minCapacity都是默认值10，数组满的话minCapacity就是当前size+1的值；
+       //数组没满之前minCapacity容量都是默认值10，数组满的话minCapacity容量就是当前size+1的值；
         ensureExplicitCapacity(minCapacity);
 }
 
@@ -67,11 +67,21 @@ private void ensureExplicitCapacity(int minCapacity) {
         modCount++;
 
         //如果 elementData.length < minCapacity 
-        //当前数组的长度 小于  的话就需要进行扩容操作
+        //当前数组的长度 小于 容量 的话就需要进行扩容操作
 
         if (minCapacity - elementData.length > 0)
             grow(minCapacity);
 }
+
+
+
+
+
+
+
+
+
+
 
  private void grow(int minCapacity) {
         // overflow-conscious code
