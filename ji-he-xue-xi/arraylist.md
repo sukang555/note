@@ -13,9 +13,9 @@ arrayList.get(0);
 
 接下来我们先看一下ArrayList的属性再来一行一行来阅读源码。
 
-![](/assets/qqq.png)
+![](/assets/Iterable.png)
 
-![](/assets/import2.png)
+![](/assets/ArrayList.png)
 
 该类 定义了两个空的Object数组，两个int类型变量，一个为null的临时Object数组；
 
@@ -111,9 +111,10 @@ private static int hugeCapacity(int minCapacity) {
 
 ![](file:///C:\Users\hand\AppData\Roaming\Tencent\Users\1677931994\TIM\WinTemp\RichOle\C]9}D[44JW184%D%29MDB~BHW.png)
 
-3.当第11次调用add方法时 需要的容量为11 此时就会进入扩容操作，新的容量为 10 + (int)(10/2) = 15;
+3.当第11次调用add方法时 需要的容量为11 此时就会进入扩容操作，新的容量为 10 + \(int\)\(10/2\) = 15;
 
 4.get方法获取指定数组下标的值；
+
 ```
   public E get(int index) {
         rangeCheck(index);
@@ -125,8 +126,7 @@ private static int hugeCapacity(int minCapacity) {
         if (index >= size)
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
 }
-
 ```
 
-总结：ArrayList 第一次扩容的初始化大小为10,扩容策略为 旧值 + (int)(旧值/2),在使用ArratList的时候指定合适的容量可以减少扩容次数；
+总结：ArrayList 第一次扩容的初始化大小为10,扩容策略为 旧值 + \(int\)\(旧值/2\),在使用ArratList的时候指定合适的容量可以减少扩容次数；
 
