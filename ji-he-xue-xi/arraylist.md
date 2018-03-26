@@ -109,8 +109,6 @@ private static int hugeCapacity(int minCapacity) {
 
 2.第一次调用add时，我需要的数组容量为1，此时数组的长度为0 因此需要扩容操作，第一次扩容出来的长度为默认值10;
 
-![](file:///C:\Users\hand\AppData\Roaming\Tencent\Users\1677931994\TIM\WinTemp\RichOle\C]9}D[44JW184%D%29MDB~BHW.png)
-
 3.当第11次调用add方法时 需要的容量为11 此时就会进入扩容操作，新的容量为 10 + \(int\)\(10/2\) = 15;
 
 4.get方法获取指定数组下标的值；
