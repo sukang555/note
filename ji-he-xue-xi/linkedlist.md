@@ -59,7 +59,7 @@ public E get(int index) {
 
 Node<E> node(int index) {
         //如果需要查找的索引位置位于前半部分则从头部开始往后找，如果位于后半部分则从尾部往前找
-        
+
         if (index < (size >> 1)) {
             Node<E> x = first;
             for (int i = 0; i < index; i++)
@@ -77,7 +77,7 @@ Node<E> node(int index) {
 //移除操作
  public E remove(int index) {
         checkElementIndex(index);
-        
+
         //先获取指定索引的Node节点
         return unlink(node(index));
 }
@@ -87,7 +87,7 @@ E unlink(Node<E> x) {
         final E element = x.item;
         final Node<E> next = x.next;
         final Node<E> prev = x.prev;
-        
+
         //如果前一个为null说明是移除的是头部节点；
         if (prev == null) {
             //更新集合的first节点为移除的下一个
@@ -97,7 +97,7 @@ E unlink(Node<E> x) {
             prev.next = next;
             x.prev = null;
         }
-        
+
         //如果next为null，说明移除的是尾部节点，然后更新集合的最后节点
 
         if (next == null) {
@@ -107,18 +107,16 @@ E unlink(Node<E> x) {
             next.prev = prev;
             x.next = null;
         }
-
+        //size减一操作，操作次数累加
         x.item = null;
         size--;
         modCount++;
         return element;
 }
-
-
 ```
 
-1.LinkedList 内部维护了一个双向链表，head和last分别为链表的头部和尾部；
-2.LinkedList 查找指定索引的元素效率低，是因为需要从头部节点开始往后遍历；
-3.LinkedList 查找元素分别从头部往后遍历到中间，或者从尾部往前遍历到中间；
+1.LinkedList 内部维护了一个双向链表，head和last分别为链表的头部和尾部；  
+2.LinkedList 查找指定索引的元素效率低，是因为需要从头部节点开始往后遍历；  
+3.LinkedList 查找元素分别从头部往后遍历到中间，或者从尾部往前遍历到中间；  
 4.LinkedList 移除元素要比ArrayList要快因为只用更新被移除节点的前一个节点的下一个引用，以及下一个节点的上一个引用；
 
