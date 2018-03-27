@@ -115,8 +115,11 @@ E unlink(Node<E> x) {
 }
 ```
 
+![](/assets/listNode.png)
+
+
+
 1.LinkedList 内部维护了一个双向链表，head和last分别为链表的头部和尾部；  
-2.LinkedList 查找指定索引的元素效率低，是因为需要从头部节点开始往后遍历；  
-3.LinkedList 查找元素分别从头部往后遍历到中间，或者从尾部往前遍历到中间；  
+2.LinkedList 查找指定索引的元素效率低，是因为需要从first节点开始往后遍历或者需要从last往前遍历；  
 4.LinkedList 移除元素要比ArrayList要快因为只用更新被移除节点的前一个节点的下一个引用，以及下一个节点的上一个引用；
 
