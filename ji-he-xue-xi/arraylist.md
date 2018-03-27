@@ -124,7 +124,39 @@ private static int hugeCapacity(int minCapacity) {
         if (index >= size)
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
 }
+
+//移除操作
+
+public E remove(int index) {
+        rangeCheck(index);
+
+        modCount++;
+
+        //获取旧的值
+        E oldValue = elementData(index);
+
+        //如果index+1 < size 就需要进行copy操作，从索引后边的开始复制
+        int numMoved = size - index - 1;
+        if (numMoved > 0)
+            System.arraycopy(elementData, index+1, elementData, index,
+                             numMoved);
+        elementData[--size] = null; // clear to let GC do its work
+
+        return oldValue;
+}
 ```
 
 总结：ArrayList 第一次扩容的初始化大小为10,扩容策略为 旧值 + \(int\)\(旧值/2\),在使用ArratList的时候指定合适的容量可以减少扩容次数；
+
+第一次初始化数组长度为10;
+
+![](/assets/vvsad.png)
+
+第一次扩容操作数组长度为15;
+
+![](/assets/dfsdfasfa.png)
+
+
+
+
 
