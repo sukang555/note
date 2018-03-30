@@ -64,13 +64,16 @@ static final int MIN_TREEIFY_CAPACITY = 64;
         if ((tab = table) == null || (n = tab.length) == 0)
             n = (tab = resize()).length;
             
-        //当前数组的长度   
+        //根据(length - 1) & hash 求出这个key在当前数组的存放位置，也就是下标； 
         if ((p = tab[i = (n - 1) & hash]) == null)
+           //如果当前位置为null,那么直接存放在当前位置
             tab[i] = newNode(hash, key, value, null);
             
-        //    
+        //如果计算出来的当前位置不为null，说明发生了碰撞;    
         else {
             Node<K,V> e; K k;
+            
+            //如果原来的key的hash值和新的hash值一样,并且==方法或者equals为true时e为旧的Node对象
             if (p.hash == hash &&
                 ((k = p.key) == key || (key != null && key.equals(k))))
                 e = p;
