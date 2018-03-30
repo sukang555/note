@@ -80,7 +80,7 @@ static final int MIN_TREEIFY_CAPACITY = 64;
             else if (p instanceof TreeNode){如果当前节点是红黑树那么就需要王红黑树添加节点；
                 e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
             }else {
-                //如果key既不相等，也不属于红黑树，那么就是链表了，就需要往链表添加一个节点；
+                //如果p既不相等，也不属于红黑树，那么就是链表了，就需要往链表添加一个节点；
                 for (int binCount = 0; ; ++binCount) {
                 
                     //这里的p指的是发生碰撞索引下的旧的Node
