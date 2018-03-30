@@ -74,8 +74,7 @@ static final int MIN_TREEIFY_CAPACITY = 64;
             Node<K,V> e; K k;
             
             //如果原来的key的hash值和新的hash值一样,并且==方法或者equals为true时e为旧的Node对象
-            if (p.hash == hash &&
-                ((k = p.key) == key || (key != null && key.equals(k))))
+            if (p.hash == hash && ((k = p.key) == key || (key != null && key.equals(k))))
                 e = p;
             else if (p instanceof TreeNode){如果当前节点是红黑树那么就需要王红黑树添加节点；
                 e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
@@ -83,20 +82,30 @@ static final int MIN_TREEIFY_CAPACITY = 64;
                 //如果p既不相等，也不属于红黑树，那么就是链表了，就需要往链表添加一个节点；
                 for (int binCount = 0; ; ++binCount) {
                 
-                    //这里的p指的是发生碰撞索引下的旧的Node
+                    //这里的p指的是发生碰撞索引下的旧的Node。
+                    
+                    //从第一个开始，找到next为null的节点
                     if ((e = p.next) == null) {
+                        //将新的Node放入到链表的尾部
                         p.next = newNode(hash, key, value, null);
+                        
+                        //如果链表的长度 大于等于8的话，就变成红黑树存储；
                         if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
                             treeifyBin(tab, hash);
                         break;
                     }
-                    if (e.hash == hash &&
-                        ((k = e.key) == key || (key != null && key.equals(k))))
+                    
+                    //这里链表的每一个都需要和当前key进行hash方法和equals方法进行判断，如果相同的话直接跳出循环;
+                    if (e.hash == hash && ((k = e.key) == key || (key != null && key.equals(k))))
                         break;
+                        
+                    如果不相同的话p更新为链表的下一个值，再进行下一次循环;    
                     p = e;
                 }
             }
             
+            
+            //如果e不为null
             if (e != null) { // existing mapping for key
                 V oldValue = e.value;
                 if (!onlyIfAbsent || oldValue == null)
