@@ -10,6 +10,6 @@
     * [Stack](ji-he-xue-xi/stack.md)
   * [Map](ji-he-xue-xi/map.md)
     * [HashMap](ji-he-xue-xi/map/hashmap.md)
-    * LinkedHashMap
+    * [LinkedHashMap](ji-he-xue-xi/map/linkedhashmap.md)
     * CurrentHashMap
 

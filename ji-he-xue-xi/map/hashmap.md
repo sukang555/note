@@ -264,16 +264,22 @@ final Node<K,V>[] resize() {
         @SuppressWarnings({"rawtypes","unchecked"})
         Node<K,V>[] newTab = (Node<K,V>[])new Node[newCap];
         table = newTab;
+        
+        //如果旧的数组不为null;
         if (oldTab != null) {
+        
+            
             for (int j = 0; j < oldCap; ++j) {
                 Node<K,V> e;
+                //遍历旧的数组，如果当前位置不为null，取出当前位置的值，然后置为null
                 if ((e = oldTab[j]) != null) {
                     oldTab[j] = null;
+                    //如果当前位置的元素没有形成链表或者树，直接重新计算在新的数组的下标值，并赋值；
                     if (e.next == null)
                         newTab[e.hash & (newCap - 1)] = e;
                     else if (e instanceof TreeNode)
                         ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);
-                    else { // preserve order
+                    else { 
                         Node<K,V> loHead = null, loTail = null;
                         Node<K,V> hiHead = null, hiTail = null;
                         Node<K,V> next;
