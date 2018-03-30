@@ -105,9 +105,11 @@ static final int MIN_TREEIFY_CAPACITY = 64;
             }
             
             
-            //如果e不为null
+            //如果e不为null，说明e是已存在的key，这里只需将旧的value替换为新的value即可；
             if (e != null) { // existing mapping for key
                 V oldValue = e.value;
+                
+                //onlyIfAbsent恒为true;
                 if (!onlyIfAbsent || oldValue == null)
                     e.value = value;
                 afterNodeAccess(e);
