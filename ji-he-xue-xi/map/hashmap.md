@@ -77,10 +77,13 @@ static final int MIN_TREEIFY_CAPACITY = 64;
             if (p.hash == hash &&
                 ((k = p.key) == key || (key != null && key.equals(k))))
                 e = p;
-            else if (p instanceof TreeNode)
+            else if (p instanceof TreeNode){如果当前节点是红黑树那么就需要王红黑树添加节点；
                 e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
-            else {
+            }else {
+                //如果key既不相等，也不属于红黑树，那么就是链表了，就需要往链表添加一个节点；
                 for (int binCount = 0; ; ++binCount) {
+                
+                    //这里的p指的是发生碰撞索引下的旧的Node
                     if ((e = p.next) == null) {
                         p.next = newNode(hash, key, value, null);
                         if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
@@ -93,6 +96,7 @@ static final int MIN_TREEIFY_CAPACITY = 64;
                     p = e;
                 }
             }
+            
             if (e != null) { // existing mapping for key
                 V oldValue = e.value;
                 if (!onlyIfAbsent || oldValue == null)
