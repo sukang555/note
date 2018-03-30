@@ -4,7 +4,7 @@ public void main2(){
 	Map<String, Object> hashMap = new HashMap<>();
 	
 	hashMap.put("AA", "AA");
-	hashMap.put("BB", "BB");
+	hashMap.put("BB", "BB");  
 	
 	
 	hashMap.get("");
