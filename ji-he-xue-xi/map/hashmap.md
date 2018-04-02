@@ -1,14 +1,14 @@
 ```java
 @Test
 public void main2(){
-	Map<String, Object> hashMap = new HashMap<>();
-	
-	hashMap.put("AA", "AA");
-	hashMap.put("BB", "BB");  
-	
-	
-	hashMap.get("");
-	
+    Map<String, Object> hashMap = new HashMap<>();
+
+    hashMap.put("AA", "AA");
+    hashMap.put("BB", "BB");  
+
+
+    hashMap.get("");
+
 }
 ```
 
@@ -37,42 +37,42 @@ static final int MIN_TREEIFY_CAPACITY = 64;
  public HashMap() {
         this.loadFactor = DEFAULT_LOAD_FACTOR; // all other fields defaulted
  }
- 
+
  public V put(K key, V value) {
         return putVal(hash(key), key, value, false, true);
  }
-  
-  
+
+
   //首先通过hash方法计算一个int类型的值，如果为null，key的hash值为0，
   static final int hash(Object key) {
         int h;   
         //这里可以这样理解 return hash^(hash >>> 16)
-        
+
         //首先获取hash的低16位，再与本身做异或运算。  
-  
+
         return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
   }
-  
-  
+
+
   final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
                    boolean evict) {
         Node<K,V>[] tab;
         Node<K,V> p;
         int n, i;
-        
+
         //如果table == null 或者 table的长度为0，则需要对table做初始化操作，n为初始化操作完成后的table的长度；
         if ((tab = table) == null || (n = tab.length) == 0)
             n = (tab = resize()).length;
-            
+
         //根据(length - 1) & hash 求出这个key在当前数组的存放位置，也就是下标； 
         if ((p = tab[i = (n - 1) & hash]) == null)
            //如果当前位置为null,那么直接存放在当前位置
             tab[i] = newNode(hash, key, value, null);
-            
+
         //如果计算出来的当前位置不为null，说明发生了碰撞;    
         else {
             Node<K,V> e; K k;
-            
+
             //如果原来的key的hash值和新的hash值一样,并且==方法或者equals为true时e为旧的Node对象
             if (p.hash == hash && ((k = p.key) == key || (key != null && key.equals(k))))
                 e = p;
@@ -81,34 +81,34 @@ static final int MIN_TREEIFY_CAPACITY = 64;
             }else {
                 //如果p既不相等，也不属于红黑树，那么就是链表了，就需要往链表添加一个节点；
                 for (int binCount = 0; ; ++binCount) {
-                
+
                     //这里的p指的是发生碰撞索引下的旧的Node。
-                    
+
                     //从第一个开始，找到next为null的节点
                     if ((e = p.next) == null) {
                         //将新的Node放入到链表的尾部
                         p.next = newNode(hash, key, value, null);
-                        
+
                         //如果链表的长度 大于等于8的话，就变成红黑树存储；
                         if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
                             treeifyBin(tab, hash);
                         break;
                     }
-                    
+
                     //这里链表的每一个都需要和当前key进行hash方法和equals方法进行判断，如果相同的话直接跳出循环;
                     if (e.hash == hash && ((k = e.key) == key || (key != null && key.equals(k))))
                         break;
-                        
+
                     如果不相同的话p更新为链表的下一个值，再进行下一次循环;    
                     p = e;
                 }
             }
-            
-            
+
+
             //如果e不为null，说明e是已存在的key，这里只需将旧的value替换为新的value即可；
             if (e != null) { // existing mapping for key
                 V oldValue = e.value;
-                
+
                 //onlyIfAbsent恒为true;
                 if (!onlyIfAbsent || oldValue == null)
                     e.value = value;
@@ -117,7 +117,7 @@ static final int MIN_TREEIFY_CAPACITY = 64;
             }
         }
         ++modCount;
-        
+
         这里如果添加完元素后，元素的数量 大于临界值的话就需要扩容;
         if (++size > threshold)
             resize();
@@ -131,14 +131,14 @@ static final int MIN_TREEIFY_CAPACITY = 64;
 
 final Node<K,V>[] resize() {
         Node<K,V>[] oldTab = table;
-        
+
         //旧的容量
         int oldCap = (oldTab == null) ? 0 : oldTab.length;
         //旧的临界值
         int oldThr = threshold;
         //新的容量和新的临界值
         int newCap, newThr = 0;
-        
+
         //先看第一个if ，如果旧的容量大于0的话就需要在原来的基础上进行扩容
         if (oldCap > 0) {
             //如果旧的容量大于等于 1 << 30值，临界值为int的最大值，直接返回旧的数组
@@ -146,15 +146,15 @@ final Node<K,V>[] resize() {
                 threshold = Integer.MAX_VALUE;
                 return oldTab;
             }
-            
+
             //如果旧的容量扩大两倍小于1 << 30 并且 旧的容量大于9的话新的临界值为原来临界值的两倍；
-            
+
             //这里也是map的扩容策略，即每次都扩容为原来的2倍
             else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
                      oldCap >= DEFAULT_INITIAL_CAPACITY)
                 newThr = oldThr << 1; // double threshold
         }
-        
+
         //如果旧的容量等于0并且旧的临界值大于0，新的容量就是旧的临界值；
         else if (oldThr > 0){
             newCap = oldThr;
@@ -162,20 +162,20 @@ final Node<K,V>[] resize() {
             newCap = DEFAULT_INITIAL_CAPACITY;
             newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);
         }
-        
+
         if (newThr == 0) {
             float ft = (float)newCap * loadFactor;
             newThr = (newCap < MAXIMUM_CAPACITY && ft < (float)MAXIMUM_CAPACITY ?
                       (int)ft : Integer.MAX_VALUE);
         }
-        
+
         //threshold指的就是当前的临界值；第一次调用完put时，值为12；
         threshold = newThr;
-        
+
         //创建一个新的Node数组，大小为上边计算出来的新的容量值，第一次为16,以后每次扩容为原来的2倍；
         @SuppressWarnings({"rawtypes","unchecked"})
         Node<K,V>[] newTab = (Node<K,V>[])new Node[newCap];
-        
+
         //这里Map的table属性有了值;
         table = newTab;
         if (oldTab != null) {
@@ -222,11 +222,11 @@ final Node<K,V>[] resize() {
         }
         return newTab;
  }
- 
- 
- 
+
+
+
  //接下来我们再分析一下满足扩容条件时的扩容方法
- 
+
  final Node<K,V>[] resize() {
         //旧的数组;
         Node<K,V>[] oldTab = table;
@@ -236,14 +236,14 @@ final Node<K,V>[] resize() {
         int oldThr = threshold;
         //新的数组容量，新的负载因素;
         int newCap, newThr = 0;
-        
-        
+
+
         if (oldCap > 0) {
             if (oldCap >= MAXIMUM_CAPACITY) {
                 threshold = Integer.MAX_VALUE;
                 return oldTab;
             }
-            
+
             //这里新的容量为原来容量的2倍，新的负载因素也是原来负载因素的2倍；
             else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
                      oldCap >= DEFAULT_INITIAL_CAPACITY)
@@ -264,11 +264,11 @@ final Node<K,V>[] resize() {
         @SuppressWarnings({"rawtypes","unchecked"})
         Node<K,V>[] newTab = (Node<K,V>[])new Node[newCap];
         table = newTab;
-        
+
         //如果旧的数组不为null;
         if (oldTab != null) {
-        
-            
+
+
             for (int j = 0; j < oldCap; ++j) {
                 Node<K,V> e;
                 //遍历旧的数组，如果当前位置不为null，取出当前位置的值，然后置为null
@@ -287,7 +287,7 @@ final Node<K,V>[] resize() {
                         Node<K,V> next;
                         do {
                             next = e.next;
-  
+
                             //这里求出最高位，如果是0的话就还是放到原来的位置；
                             if ((e.hash & oldCap) == 0) {
                                 if (loTail == null)
@@ -319,30 +319,21 @@ final Node<K,V>[] resize() {
         }
         return newTab;
   }
- 
-
 ```
+
 我们总结一下这里边涉及到的算法分析；
 
-1.
+1. hash = key.hashCode\(\)^\(key.hashCode\(\) &gt;&gt;&gt; 16\);
+   index = hash & \(table.length -1\)
 
+![](/assets/hash.png)
 
+这里解释一下为什么我们选取数组的长度时选择2的正次幂，因为数组的长度 -1 相当于一个低位掩码，高位全部为0，低位全部为1.  
+相当于保留hash的低位，用来作为数组的下标。因此为了减少碰撞低位尽可能随机。
 
+获取hash的值以后，拿高16位和原始的低16位做异或运算，结果是高16位保持不变，低16位也有了高16位的特征。
 
+2.在进行除了首次以外的扩容方法时
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![](/assets/hash2.png)
 
