@@ -155,7 +155,7 @@ final Node<K,V>[] resize() {
                 newThr = oldThr << 1; // double threshold
         }
         
-        //如果旧的临界值大于0，新的容量就是旧的临界值；
+        //如果旧的容量等于0并且旧的临界值大于0，新的容量就是旧的临界值；
         else if (oldThr > 0){
             newCap = oldThr;
         }else {  //这里是调用第一次put时进入的判断，这里新的容量为默认值16；新的临界值为(int)(10*0.75) 也就是12;
@@ -176,7 +176,7 @@ final Node<K,V>[] resize() {
         @SuppressWarnings({"rawtypes","unchecked"})
         Node<K,V>[] newTab = (Node<K,V>[])new Node[newCap];
         
-        //这里Map的table属性有了值；
+        //这里Map的table属性有了值;
         table = newTab;
         if (oldTab != null) {
             for (int j = 0; j < oldCap; ++j) {
@@ -277,14 +277,18 @@ final Node<K,V>[] resize() {
                     //如果当前位置的元素没有形成链表或者树，直接重新计算在新的数组的下标值，并赋值；
                     if (e.next == null)
                         newTab[e.hash & (newCap - 1)] = e;
+                    //如果当前位置的节点是红黑树的话执行split;
                     else if (e instanceof TreeNode)
                         ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);
-                    else { 
+                    else {
+                    //如果当前位置是链表的话 
                         Node<K,V> loHead = null, loTail = null;
                         Node<K,V> hiHead = null, hiTail = null;
                         Node<K,V> next;
                         do {
                             next = e.next;
+  
+                            //这里求出最高位，如果是0的话就还是放到原来的位置；
                             if ((e.hash & oldCap) == 0) {
                                 if (loTail == null)
                                     loHead = e;
@@ -292,6 +296,7 @@ final Node<K,V>[] resize() {
                                     loTail.next = e;
                                 loTail = e;
                             }
+                            //如果是1的话，就放到原来的索引+旧表长度的位置；
                             else {
                                 if (hiTail == null)
                                     hiHead = e;
@@ -317,7 +322,9 @@ final Node<K,V>[] resize() {
  
 
 ```
+我们总结一下这里边涉及到的算法分析；
 
+1.
 
 
 
