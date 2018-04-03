@@ -350,7 +350,7 @@ final Node<K,V>[] resize() {
     源码这样实现这个算法 if ((e.hash & oldCap) == 0) {}else{};
 
 
-
+3.所以我们可以初始化hashmap的大小减少扩容次数提高效率。
 
 
 
