@@ -363,7 +363,7 @@ public V get(Object key) {
         return (e = getNode(hash(key), key)) == null ? null : e.value;
 }
     //获取key的hash，和存的时候获取的hash值一样。
-static final int hash(Object key) {
+static final int hash(Object key) {======================
         int h;
         return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
 }
@@ -401,6 +401,14 @@ final Node<K,V> getNode(int hash, Object key) {
         return null;
 }
     
+
+```
+
+
+三。hashMap的线程安全问题
+
+``` java
+        
 
 ```
 
