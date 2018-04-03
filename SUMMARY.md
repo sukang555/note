@@ -11,5 +11,5 @@
   * [Map](ji-he-xue-xi/map.md)
     * [HashMap](ji-he-xue-xi/map/hashmap.md)
     * [LinkedHashMap](ji-he-xue-xi/map/linkedhashmap.md)
-    * CurrentHashMap
+    * [CurrentHashMap](ji-he-xue-xi/map/currenthashmap.md)
 
