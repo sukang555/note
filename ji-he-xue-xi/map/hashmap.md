@@ -354,7 +354,55 @@ final Node<K,V>[] resize() {
 
 
 
+二、接下来我们再来分析一下get方法
 
+```java
+public V get(Object key) {
+        Node<K,V> e;
+        
+        return (e = getNode(hash(key), key)) == null ? null : e.value;
+}
+    //获取key的hash，和存的时候获取的hash值一样。
+static final int hash(Object key) {
+        int h;
+        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+}
+
+
+
+
+final Node<K,V> getNode(int hash, Object key) {
+        Node<K,V>[] tab;
+        Node<K,V> first, e;
+        int n;
+        K k;
+        
+        //如果table不为null，并且长度大于0，并且 计算出的索引位置不为null;
+        if ((tab = table) != null && (n = tab.length) > 0 && (first = tab[(n - 1) & hash]) != null) {
+            
+            
+            //检查一下这个索引下的第一个是否是需要的key
+            if (first.hash == hash && // always check first node
+                ((k = first.key) == key || (key != null && key.equals(k))))
+                return first;
+            if ((e = first.next) != null) {
+                // 如果这个索引属于红黑树的话就去红黑树中获取，否则就遍历这个链表，
+                //直到获取元素，如果没有就返回null。
+                if (first instanceof TreeNode)
+                    return ((TreeNode<K,V>)first).getTreeNode(hash, key);
+                    
+                do {
+                    if (e.hash == hash &&
+                        ((k = e.key) == key || (key != null && key.equals(k))))
+                        return e;
+                } while ((e = e.next) != null);
+            }
+        }
+        return null;
+}
+    
+
+```
 
 
 
