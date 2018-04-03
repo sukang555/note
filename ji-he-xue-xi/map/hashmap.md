@@ -405,5 +405,5 @@ final Node<K,V> getNode(int hash, Object key) {
 }
 ```
 
-
+![](/assets/HashMap4.png)
 
