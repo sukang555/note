@@ -329,37 +329,40 @@ final Node<K,V>[] resize() {
 
 ![](/assets/hash.png)
 
-    这里解释一下为什么我们选取数组的长度时选择2的正次幂，因为数组的长度 -1 相当于一个低位掩码，
-    高位全部为0，低位全部为1.  
-    相当于保留hash的低位，计算后用来作为数组的下标。因此为了减少碰撞低位尽可能随机。
+```
+这里解释一下为什么我们选取数组的长度时选择2的正次幂，因为数组的长度 -1 相当于一个低位掩码，
+高位全部为0，低位全部为1.  
+相当于保留hash的低位，计算后用来作为数组的下标。因此为了减少碰撞低位尽可能随机。
 
-    获取hash的值以后，拿高16位和原始的低16位做异或运算，结果是高16位保持不变，低16位也有了高16位的特征。
+获取hash的值以后，拿高16位和原始的低16位做异或运算，结果是高16位保持不变，低16位也有了高16位的特征。
+```
 
 2.在进行除了首次以外的扩容方法时
 
 ![](/assets/hash2.png)
 
-    照道理，我在resize的时候，遍历所有的Node节点，获取他们的hash属性在于新的数组进行求与，重新计算数组下标。
-    但是如果是链表的话，说明它们的下标索引是相同的。因为扩容是原来的2倍 length - 1 就是在高位添加一个1；
+```
+照道理，我在resize的时候，遍历所有的Node节点，获取他们的hash属性在于新的数组进行求与，重新计算数组下标。
+但是如果是链表的话，说明它们的下标索引是相同的。因为扩容是原来的2倍 length - 1 就是在高位添加一个1；
+```
 
-0101 -> 5     00101 -> 5   10101 -> 16 + 5 = 21 
+0101 -&gt; 5     00101 -&gt; 5   10101 -&gt; 16 + 5 = 21
 
-    也就是说如果原来的hash高1位为0时，和新的数组大小求余以后取得的索引不变。
-    高1位为1时，新的索引位置应该是原来的索引位置+旧的数组长度。
-    
-    源码这样实现这个算法 if ((e.hash & oldCap) == 0) {}else{};
+```
+也就是说如果原来的hash高1位为0时，和新的数组大小求余以后取得的索引不变。
+高1位为1时，新的索引位置应该是原来的索引位置+旧的数组长度。
 
+源码这样实现这个算法 if ((e.hash & oldCap) == 0) {}else{};
+```
 
 3.所以我们可以初始化hashmap的大小减少扩容次数提高效率。
-
-
 
 二、接下来我们再来分析一下get方法
 
 ```java
 public V get(Object key) {
         Node<K,V> e;
-        
+
         return (e = getNode(hash(key), key)) == null ? null : e.value;
 }
     //获取key的hash，和存的时候获取的hash值一样。
@@ -376,11 +379,11 @@ final Node<K,V> getNode(int hash, Object key) {
         Node<K,V> first, e;
         int n;
         K k;
-        
+
         //如果table不为null，并且长度大于0，并且 计算出的索引位置不为null;
         if ((tab = table) != null && (n = tab.length) > 0 && (first = tab[(n - 1) & hash]) != null) {
-            
-            
+
+
             //检查一下这个索引下的第一个是否是需要的key
             if (first.hash == hash && // always check first node
                 ((k = first.key) == key || (key != null && key.equals(k))))
@@ -390,7 +393,7 @@ final Node<K,V> getNode(int hash, Object key) {
                 //直到获取元素，如果没有就返回null。
                 if (first instanceof TreeNode)
                     return ((TreeNode<K,V>)first).getTreeNode(hash, key);
-                    
+
                 do {
                     if (e.hash == hash &&
                         ((k = e.key) == key || (key != null && key.equals(k))))
@@ -400,21 +403,7 @@ final Node<K,V> getNode(int hash, Object key) {
         }
         return null;
 }
-    
-
 ```
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
