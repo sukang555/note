@@ -48,15 +48,21 @@ TreeNode<K,V> replacementTreeNode(Node<K,V> p, Node<K,V> next) {
 
 //这里将treeNode的链表转换为红黑树;
 final void treeify(Node<K,V>[] tab) {
+            //红黑树的根部节点
             TreeNode<K,V> root = null;
+            
+            //这里的this指的是链表的头部；x指的是root节点
             for (TreeNode<K,V> x = this, next; x != null; x = next) {
                 next = (TreeNode<K,V>)x.next;
                 x.left = x.right = null;
+                
+                //初始化root节点，颜色为黑色
                 if (root == null) {
                     x.parent = null;
                     x.red = false;
                     root = x;
                 }
+                
                 else {
                     K k = x.key;
                     int h = x.hash;
