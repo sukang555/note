@@ -77,7 +77,7 @@ static final int MIN_TREEIFY_CAPACITY = 64;
             //如果原来的key的hash值和新的hash值一样,并且==方法或者equals为true时e为旧的Node对象
             if (p.hash == hash && ((k = p.key) == key || (key != null && key.equals(k))))
                 e = p;
-            else if (p instanceof TreeNode){如果当前节点是红黑树那么就需要王红黑树添加节点；
+            else if (p instanceof TreeNode){如果当前节点是红黑树那么就需要向红黑树添加节点；
                 e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
             }else {
                 //如果p既不相等，也不属于红黑树，那么就是链表了，就需要往链表添加一个节点；
