@@ -12,4 +12,5 @@
     * [HashMap](ji-he-xue-xi/map/hashmap.md)
     * [LinkedHashMap](ji-he-xue-xi/map/linkedhashmap.md)
     * [CurrentHashMap](ji-he-xue-xi/map/currenthashmap.md)
+    * [红黑树](ji-he-xue-xi/map/hong-hei-shu.md)
 

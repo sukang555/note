@@ -57,11 +57,16 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
             else {
               //f为当前下标的Node对象
                 V oldVal = null;
-                
+                //这里获取当前下表位置的头部对象锁
                 synchronized (f) {
                     if (tabAt(tab, i) == f) {
-                        if (fh >= 0) {
+                        if (fh >= 0) {//fn指的是头部节点的hash值
+                            //而且这个if里边做的链表的逻辑
+                            
+                            //binCount 指的是链表的长度；
                             binCount = 1;
+                            //遍历这个链表，如果链表中已存在相同的key，只用将值覆盖为最新的。
+                            //否则，直到找到链表的尾部，将新的Node放到尾部
                             for (Node<K,V> e = f;; ++binCount) {
                                 K ek;
                                 if (e.hash == hash &&
@@ -80,6 +85,7 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
                                 }
                             }
                         }
+                        //如果f属于树的话，就往树里添加对象
                         else if (f instanceof TreeBin) {
                             Node<K,V> p;
                             binCount = 2;
@@ -92,7 +98,10 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
                         }
                     }
                 }
+                //如果走的链表的逻辑binCount的值为链表的长度，
+                //如果走的是红黑树的逻辑binCount的值为固定值2，
                 if (binCount != 0) {
+                    //如果binCount的值大于等于8，就变换成红黑树
                     if (binCount >= TREEIFY_THRESHOLD)
                         treeifyBin(tab, i);
                     if (oldVal != null)
@@ -104,6 +113,8 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
         addCount(1L, binCount);
         return null;
 }
+
+
 ```
 
 
