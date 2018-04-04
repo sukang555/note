@@ -2,7 +2,7 @@
 
 ```java
 
-    //map的在put的时候存在一个将数组
+//map的在put的时候存在一个将数组
 //这是HashMap的红黑树源码。
 final void treeifyBin(Node<K,V>[] tab, int hash) {
         int n, index;
