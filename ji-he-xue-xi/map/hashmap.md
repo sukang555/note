@@ -61,7 +61,7 @@ static final int MIN_TREEIFY_CAPACITY = 64;
         int n, i;
 
         //如果table == null 或者 table的长度为0，则需要对table做初始化操作，
-        n为初始化操作完成后的table的长度；
+        //n为初始化操作完成后的table的长度；
         if ((tab = table) == null || (n = tab.length) == 0)
             n = (tab = resize()).length;
 
