@@ -1,7 +1,5 @@
 ![](/assets/内存模型.png)
 
-
-
 堆区域划分
 
 ![](/assets/Space.png)
