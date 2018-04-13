@@ -17,4 +17,6 @@
   * [Java内存模型笔记](javanei-cun-mo-xing-bi-ji.md)
 * [LogBack配置文件](logback.md)
 * [Java设计模式](javashe-ji-mo-5f0f28-dai-yuan-ma-an-4f8b29.md)
+  * [创建型](chuang-jian-xing.md)
+    * [建造者模式](chuang-jian-xing/jian-zao-zhe-mo-shi.md)
 
