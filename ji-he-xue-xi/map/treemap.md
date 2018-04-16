@@ -15,15 +15,7 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
 
 ![](/assets/TreeMap.png)
 
-
-
 ![](/assets/TreeMap2.png)
-
-
-
-
-
-
 
 ```java
     @Test
@@ -36,12 +28,12 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
 
         System.out.println(treeMap.get("2"));
      }
-     
+
     public TreeMap() {
         comparator = null;
     }
-    
-    
+
+
      public V put(K key, V value) {
         Entry<K,V> t = root;
         if (t == null) {
@@ -94,28 +86,6 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
         modCount++;
         return null;
     }
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
 ```
 
 
