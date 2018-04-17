@@ -35,10 +35,11 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
 
 
      public V put(K key, V value) {
+        //第一次put的时候根节点root的值为null
         Entry<K,V> t = root;
         if (t == null) {
             compare(key, key); // type (and possibly null) check
-
+            //这个时候就初始化root节点
             root = new Entry<>(key, value, null);
             size = 1;
             modCount++;
@@ -47,6 +48,10 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
         int cmp;
         Entry<K,V> parent;
         // split comparator and comparable paths
+        
+        //这个地方获取默认的comparator对象，因为在构造器中我们可以给comparator初始化自己的比较策略：
+        
+        //未初始化的话comparator对象为null
         Comparator<? super K> cpr = comparator;
         if (cpr != null) {
             do {
@@ -60,14 +65,24 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
                     return t.setValue(value);
             } while (t != null);
         }
+        
+        
         else {
+        
+         //comparator为null的话需要保证key不为null;
             if (key == null)
                 throw new NullPointerException();
             @SuppressWarnings("unchecked")
                 Comparable<? super K> k = (Comparable<? super K>) key;
+                
+            // t为当前的节点，第一次循环为root根节点,一直循环到当前节点的最后子节点为null的时候，
+            // 最后parent的值为子节点为null的节点;
             do {
                 parent = t;
+                
+                //将新添加的key与当前遍历到的节点的key进行比较
                 cmp = k.compareTo(t.key);
+                //小于走左边，大于走右边，等于覆盖当前节点的值；
                 if (cmp < 0)
                     t = t.left;
                 else if (cmp > 0)
@@ -76,16 +91,26 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
                     return t.setValue(value);
             } while (t != null);
         }
+        
+        //最后再将新添加的key包装为Entry放到最后位置;这个时候新添加过程已经完成
         Entry<K,V> e = new Entry<>(key, value, parent);
         if (cmp < 0)
             parent.left = e;
         else
             parent.right = e;
+        //这个方法是新添加完成以后要验证是否符合红黑树的特征，然后在进行左旋右旋或者改变颜色操作
         fixAfterInsertion(e);
         size++;
         modCount++;
         return null;
     }
+    
+    
+    
+    
+    
+    
+    
 ```
 
 
