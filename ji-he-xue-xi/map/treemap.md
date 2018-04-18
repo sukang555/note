@@ -108,9 +108,12 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
     
     
     private void fixAfterInsertion(Entry<K,V> x) {
+        //新添加的Node颜色为红色：
         x.color = RED;
-
-        while (x != null && x != root && x.parent.color == RED) {
+        
+       //这里循环条件为 x不为null，x不为root，x的父亲的颜色为红色
+        while (x != null && x != root && x.parent.color == RED) { 
+        
             if (parentOf(x) == leftOf(parentOf(parentOf(x)))) {
                 Entry<K,V> y = rightOf(parentOf(parentOf(x)));
                 if (colorOf(y) == RED) {
