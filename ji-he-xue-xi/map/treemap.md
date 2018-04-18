@@ -48,9 +48,9 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
         int cmp;
         Entry<K,V> parent;
         // split comparator and comparable paths
-        
+
         //这个地方获取默认的comparator对象，因为在构造器中我们可以给comparator初始化自己的比较策略：
-        
+
         //未初始化的话comparator对象为null
         Comparator<? super K> cpr = comparator;
         if (cpr != null) {
@@ -65,21 +65,21 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
                     return t.setValue(value);
             } while (t != null);
         }
-        
-        
+
+
         else {
-        
+
          //comparator为null的话需要保证key不为null;
             if (key == null)
                 throw new NullPointerException();
             @SuppressWarnings("unchecked")
                 Comparable<? super K> k = (Comparable<? super K>) key;
-                
+
             // t为当前的节点，第一次循环为root根节点,一直循环到当前节点的最后子节点为null的时候，
             // 最后parent的值为子节点为null的节点;
             do {
                 parent = t;
-                
+
                 //将新添加的key与当前遍历到的节点的key进行比较
                 cmp = k.compareTo(t.key);
                 //小于走左边，大于走右边，等于覆盖当前节点的值；
@@ -91,7 +91,7 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
                     return t.setValue(value);
             } while (t != null);
         }
-        
+
         //最后再将新添加的key包装为Entry放到最后位置;这个时候新添加过程已经完成
         Entry<K,V> e = new Entry<>(key, value, parent);
         if (cmp < 0)
@@ -104,19 +104,38 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
         modCount++;
         return null;
     }
-    
-    
-    
-    private void fixAfterInsertion(Entry<K,V> x) {
-        //新添加的Node颜色为红色：
+```
+
+下边我们通过例子来分析fixAfterInsertion\(\)方法
+
+![](/assets/Tree4.png)
+
+                 图 1.1
+
+
+
+
+
+![](/assets/TreeMap1.2.png)
+
+                       图 1.2
+
+```java
+    //我们看到上图中，根节点是黑色，红色也不连续，当我们新加入15元素的时候
+    //x这里指的是新添加的元素
+     private void fixAfterInsertion(Entry<K,V> x) {
+        //新添加的元素的颜色为红色
         x.color = RED;
-        
-       //这里循环条件为 x不为null，x不为root，x的父亲的颜色为红色
-        while (x != null && x != root && x.parent.color == RED) { 
-        
+        //由于15的父亲元素10为红色，因此会进入这个循环
+        while (x != null && x != root && x.parent.color == RED) {
+
+            //如果新插入节点x的父节点是祖父节点的左孩子
             if (parentOf(x) == leftOf(parentOf(parentOf(x)))) {
+                //获取该节点的祖父的右子树
                 Entry<K,V> y = rightOf(parentOf(parentOf(x)));
+                //如果右子树为红色
                 if (colorOf(y) == RED) {
+                  //则将该节点的祖父节点的左右子书全部置为黑色，祖父节点的颜色置为红色
                     setColor(parentOf(x), BLACK);
                     setColor(y, BLACK);
                     setColor(parentOf(parentOf(x)), RED);
@@ -131,8 +150,12 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
                     rotateRight(parentOf(parentOf(x)));
                 }
             } else {
+            
+             //如果新插入节点x的父节点是祖父节点的右孩子
                 Entry<K,V> y = leftOf(parentOf(parentOf(x)));
+                //如果该节点的祖父节点的左子节点的颜色为红色 图1.1
                 if (colorOf(y) == RED) {
+                    //将该节点的父类节点全部置为黑色，并将祖父节点置为红色图1.2
                     setColor(parentOf(x), BLACK);
                     setColor(y, BLACK);
                     setColor(parentOf(parentOf(x)), RED);
@@ -148,15 +171,9 @@ TreeMap的底层是红黑树，而红黑树是一种近似平衡的二叉查找�
                 }
             }
         }
+        //根节点一直为黑色
         root.color = BLACK;
     }
-    
-    
-    
-    
-    
-    
-    
 ```
 
 
