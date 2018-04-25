@@ -58,7 +58,7 @@
     //上边例子中有4个线程，T1和T2调用countDown方法将state的值进行减一操作，
     //T3,T4线程调用await方法，线程进入阻塞等待state的值减到0为止，然后T3,T4唤醒继续走.
     
-    
+一# 等待分析
     public void await() throws InterruptedException {
         sync.acquireSharedInterruptibly(1);
     }
@@ -142,26 +142,7 @@
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  二、唤醒分析
 
 
     public void countDown() {
