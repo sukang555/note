@@ -275,8 +275,12 @@ final boolean acquireQueued(final Node node, int arg) {
         return false;
 }
 
-
-
+    //由于shouldParkAfterFailedAcquire和parkAndCheckInterrupt是在一个循环中，所以第二次循环的话
+    //shouldParkAfterFailedAcquire会返回true,最后挂起当前线程。
+private final boolean parkAndCheckInterrupt() {
+        LockSupport.park(this);
+        return Thread.interrupted();
+}
 
 
 
