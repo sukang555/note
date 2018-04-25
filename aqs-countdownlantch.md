@@ -87,6 +87,7 @@
                 final Node p = node.predecessor();
                 if (p == head) {
                     int r = tryAcquireShared(arg);
+                    
                     if (r >= 0) {
                         setHeadAndPropagate(node, r);
                         p.next = null; // help GC
@@ -94,6 +95,7 @@
                         return;
                     }
                 }
+                //shouldParkAfterFailedAcquire()将当前节点的前一个的state值设置为-1
                 if (shouldParkAfterFailedAcquire(p, node) &&
                     parkAndCheckInterrupt())
                     throw new InterruptedException();
