@@ -79,7 +79,8 @@
     
      private void doAcquireSharedInterruptibly(int arg)
         throws InterruptedException {
-        final Node node = addWaiter(Node.SHARED);
+        final Node node = addWaiter(Node.SHARED); 
+        //这里返回Node-1
         boolean failed = true;
         try {
             for (;;) {
@@ -109,6 +110,7 @@
         Node node = new Node(Thread.currentThread(), mode);
         
         Node pred = tail;
+        //如果tail不为null，将新包装的Node直接加入队列
         if (pred != null) {
             node.prev = pred;
             if (compareAndSetTail(pred, node)) {
@@ -119,7 +121,7 @@
         enq(node);
         return node;
     }
-    
+    //参数为Node-1
      private Node enq(final Node node) {
         for (;;) {
             Node t = tail;
