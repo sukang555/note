@@ -103,10 +103,11 @@
         }
     }
     
-     //ReentrantLock的addWaiter传入的是null，这里传入的是new的空Node对象.
+     //ReentrantLock的addWaiter传入的是null，这里传入的是new的空Node对象,我们将其命名为Node-shared.
      private Node addWaiter(Node mode) {
+        //这里将当前线程包装为Node,我们把它命名为Node-1,next为Node-shared
         Node node = new Node(Thread.currentThread(), mode);
-        // Try the fast path of enq; backup to full enq on failure
+        
         Node pred = tail;
         if (pred != null) {
             node.prev = pred;
