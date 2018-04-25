@@ -147,7 +147,8 @@ public final void acquire(int arg) {
 protected final boolean tryAcquire(int acquires) {
             //同样获取当前线程 T2
             final Thread current = Thread.currentThread();
-            //获取T2线程的state的值，此时获取的state的值大于0 我们之前分析过T1，T1线程获取完线程以后会将state的值通过cas方式加1操作，
+            //获取T2线程的state的值，此时获取的state的值大于0 我们之前分析过T1，
+            //T1线程获取完线程以后会将state的值通过cas方式加1操作，
             //如果是重入的话进行累加操作，每获取一次就累加。所以这个方法会返回false;
             int c = getState();
             if (c == 0) {
@@ -169,7 +170,8 @@ protected final boolean tryAcquire(int acquires) {
 }
         //if (!tryAcquire(arg) && acquireQueued(addWaiter(Node.EXCLUSIVE), arg))  selfInterrupt();
 
-        //我们又回到这个方法，T2前一个判断返回的是false;那么程序会执行addWaiter()方法,并将返回结果当作参数继续执行acquireQueued()方法；
+        //我们又回到这个方法，T2前一个判断返回的是false;那么程序会执行addWaiter()方法,
+        //并将返回结果当作参数继续执行acquireQueued()方法；
 
 private Node addWaiter(Node mode) {
 
