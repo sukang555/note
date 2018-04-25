@@ -96,6 +96,7 @@
                     }
                 }
                 //shouldParkAfterFailedAcquire()将当前节点的前一个的state值设置为-1
+                //然后进入parkAndCheckInterrupt 方法线程挂起
                 if (shouldParkAfterFailedAcquire(p, node) &&
                     parkAndCheckInterrupt())
                     throw new InterruptedException();
