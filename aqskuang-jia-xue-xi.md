@@ -283,6 +283,33 @@ private final boolean parkAndCheckInterrupt() {
 }
 
 
+# 二 、唤醒操作
+    public void unlock() {
+        sync.release(1);
+    }
+    
+    public final boolean release(int arg) {
+        if (tryRelease(arg)) {
+            Node h = head;
+            if (h != null && h.waitStatus != 0)
+                unparkSuccessor(h);
+            return true;
+        }
+        return false;
+    }
+    protected final boolean tryRelease(int releases) {
+            int c = getState() - releases;
+            if (Thread.currentThread() != getExclusiveOwnerThread())
+                throw new IllegalMonitorStateException();
+            boolean free = false;
+            //如果c==0 也就是没有重入锁了就直接完全释放。
+            if (c == 0) {
+                free = true;
+                setExclusiveOwnerThread(null);
+            }
+            setState(c);
+            return free;
+        }
 
 
 
