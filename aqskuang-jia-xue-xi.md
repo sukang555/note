@@ -249,11 +249,41 @@ final boolean acquireQueued(final Node node, int arg) {
         } finally {
             if (failed)
                 cancelAcquire(node);
-        }
+        }  
 }
+    //这里第一个参数为当前节点的前一个，node为当前节点
+ private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
+        int ws = pred.waitStatus;
+        if (ws == Node.SIGNAL)
+            //前驱节点的 waitStatus == -1 ，说明前驱节点状态正常，当前线程需要挂起，直接可以返回true
+            return true;
+            
+            //如果前驱结点的waitStatus> 0
+            //前驱节点 waitStatus大于0 ，之前说过，大于0 说明前驱节点取消了排队。这里需要知道这点：
+            //进入阻塞队列排队的线程会被挂起，而唤醒的操作是由前驱节点完成的。
+            //所以下面这块代码说的是将当前节点的prev指向waitStatus<=0的节点     
+        if (ws > 0) {
+            
+            do {
+                node.prev = pred = pred.prev;
+            } while (pred.waitStatus > 0);
+            pred.next = node;
+        } else {
+            //如果前驱结点的值为0，就将前驱结点的值设置为-1;
+            compareAndSetWaitStatus(pred, ws, Node.SIGNAL);
+        }
+        return false;
+}
+
+
+
+
+
+
+
+
 ```
+当存在T2,T3线程的时候FairSync对象所维护的链表如图所示,
 
-T2线程首次进入enq\(\)方法时在第一次循环时，FairSync对象的属性状态
-
-![](/assets/import.pngHead == tail=new Node%28%29)
+![](/assets/head-tail-Node.png)
 
