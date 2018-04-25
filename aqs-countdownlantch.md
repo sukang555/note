@@ -180,14 +180,14 @@
         for (;;) {
             Node h = head;
             if (h != null && h != tail) {
+                //拿到head节点的status，因为T3入队的时候将head的status设置为-1了
                 int ws = h.waitStatus;
                 if (ws == Node.SIGNAL) {
                     if (!compareAndSetWaitStatus(h, Node.SIGNAL, 0))
                         continue;            // loop to recheck cases
                     unparkSuccessor(h);
                 }
-                else if (ws == 0 &&
-                         !compareAndSetWaitStatus(h, 0, Node.PROPAGATE))
+                else if (ws == 0 && !compareAndSetWaitStatus(h, 0, Node.PROPAGATE))
                     continue;                // loop on failed CAS
             }
             if (h == head)                   // loop if head changed
