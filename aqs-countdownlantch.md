@@ -57,6 +57,78 @@
     }
     //上边例子中有4个线程，T1和T2调用countDown方法将state的值进行减一操作，
     //T3,T4线程调用await方法，线程进入阻塞等待state的值减到0为止，然后T3,T4唤醒继续走.
+    
+    
+    public void await() throws InterruptedException {
+        sync.acquireSharedInterruptibly(1);
+    }
+    
+    public final void acquireSharedInterruptibly(int arg)
+            throws InterruptedException {
+        if (Thread.interrupted())
+            throw new InterruptedException();
+            //如果state的值 >0 则进入doAcquireSharedInterruptibly方法
+        if (tryAcquireShared(arg) < 0)
+            doAcquireSharedInterruptibly(arg);
+    }
+    
+    protected int tryAcquireShared(int acquires) {
+            return (getState() == 0) ? 1 : -1;
+    }
+    
+    
+     private void doAcquireSharedInterruptibly(int arg)
+        throws InterruptedException {
+        final Node node = addWaiter(Node.SHARED);
+        boolean failed = true;
+        try {
+            for (;;) {
+                final Node p = node.predecessor();
+                if (p == head) {
+                    int r = tryAcquireShared(arg);
+                    if (r >= 0) {
+                        setHeadAndPropagate(node, r);
+                        p.next = null; // help GC
+                        failed = false;
+                        return;
+                    }
+                }
+                if (shouldParkAfterFailedAcquire(p, node) &&
+                    parkAndCheckInterrupt())
+                    throw new InterruptedException();
+            }
+        } finally {
+            if (failed)
+                cancelAcquire(node);
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     public void countDown() {
