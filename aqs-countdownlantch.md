@@ -196,7 +196,10 @@
     }
     
 ```
-
+三# 总结
+    1.AQS 里面的 state 是一个整数值，这边用一个 int count 参数其实初始化就是设置了这个值，
+    所有调用了 await 方法的等待线程会挂起，然后有其他一些线程会做   state = state - 1 操作，
+    当 state 减到 0 的同时，那个线程会负责唤醒调用了 await 方法的所有线程
 
 
 ![](/assets/CountDownLantch.png)
