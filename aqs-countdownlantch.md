@@ -57,12 +57,12 @@
     }
     //上边例子中有4个线程，T1和T2调用countDown方法将state的值进行减一操作，
     //T3,T4线程调用await方法，线程进入阻塞等待state的值减到0为止，然后T3,T4唤醒继续走.
-    
+
 一# 等待分析
     public void await() throws InterruptedException {
         sync.acquireSharedInterruptibly(1);
     }
-    
+
     public final void acquireSharedInterruptibly(int arg)
             throws InterruptedException {
         if (Thread.interrupted())
@@ -71,12 +71,12 @@
         if (tryAcquireShared(arg) < 0)
             doAcquireSharedInterruptibly(arg);
     }
-    
+
     protected int tryAcquireShared(int acquires) {
             return (getState() == 0) ? 1 : -1;
     }
-    
-    
+
+
      private void doAcquireSharedInterruptibly(int arg)
         throws InterruptedException {
         final Node node = addWaiter(Node.SHARED); 
@@ -87,7 +87,7 @@
                 final Node p = node.predecessor();
                 if (p == head) {
                     int r = tryAcquireShared(arg);
-                    
+
                     if (r >= 0) {
                         setHeadAndPropagate(node, r);
                         p.next = null; // help GC
@@ -106,12 +106,12 @@
                 cancelAcquire(node);
         }
     }
-    
+
      //ReentrantLock的addWaiter传入的是null，这里传入的是new的空Node对象,我们将其命名为Node-shared.
      private Node addWaiter(Node mode) {
         //这里将当前线程包装为Node,我们把它命名为Node-1,next为Node-shared
         Node node = new Node(Thread.currentThread(), mode);
-        
+
         Node pred = tail;
         //如果tail不为null，将新包装的Node直接加入队列
         if (pred != null) {
@@ -140,8 +140,8 @@
             }
         }
     }
-    
-    
+
+
   二、唤醒分析
 
 
@@ -176,7 +176,7 @@
     }
 
      private void doReleaseShared() {
-     
+
         for (;;) {
             Node h = head;
             if (h != null && h != tail) {
@@ -194,7 +194,10 @@
                 break;
         }
     }
+    
 ```
 
 
+
+![](/assets/CountDownLantch.png)
 
