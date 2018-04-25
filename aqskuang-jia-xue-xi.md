@@ -101,7 +101,8 @@ protected final boolean tryAcquire(int acquires) {
                 }
             }
 
-            //如果FairSync的state不等于0的话再判断一下当前线程是否已经获取过锁了，如果已经或去过那么就state+1，这也就是重入锁。返回true；
+            //如果FairSync的state不等于0的话再判断一下当前线程是否已经获取过锁了，
+            //如果已经或去过那么就state+1，这也就是重入锁。返回true；
 
             else if (current == getExclusiveOwnerThread()) {
                 int nextc = c + acquires;
@@ -226,12 +227,12 @@ final boolean acquireQueued(final Node node, int arg) {
         boolean failed = true;
         try {
             boolean interrupted = false;
-            
+
             //这里node.predecessor()将node的前一个返回，这里的值为 node-0，此时head == node-0
-            
+
             for (;;) {
                 final Node p = node.predecessor();
-                
+
                 //如果head == p 这里也就是true
                 if (p == head && tryAcquire(arg)) {
                     setHead(node);
@@ -248,11 +249,9 @@ final boolean acquireQueued(final Node node, int arg) {
                 cancelAcquire(node);
         }
 }
-
-
-
-
 ```
 
-T2线程首次进入enq()方法时在第一次循环时，FairSync对象的属性状态![](/assets/import.pngHead == tail=new Node%28%29)
+T2线程首次进入enq\(\)方法时在第一次循环时，FairSync对象的属性状态
+
+![](/assets/import.pngHead == tail=new Node%28%29)
 
