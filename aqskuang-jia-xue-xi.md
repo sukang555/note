@@ -204,7 +204,7 @@ private Node enq(final Node node) {
 
         //此时T2进入这里，首先进入一个死循环这种方式编译出来的指令要比while少。
         for (;;) {
-        //这个里 tail为null，传进来的node就是刚刚new出来的节点对象。然后会进入第一个判断，这里通过cas操作给FairSync对象的head赋值，
+        //这个里 tail为null，参数为Node-1也就是T2线程的包装Node。然后会进入第一个判断，这里通过cas操作给FairSync对象的head赋值，
         //此时又new了一个空的Node作为FairSync的head节点。再将head赋值给tail节点。我们把它命名为node-0
         //然后程序又进行下一次循环，t！= null 
             Node t = tail;
@@ -212,8 +212,8 @@ private Node enq(final Node node) {
                 if (compareAndSetHead(new Node()))
                     tail = head;
             } else {
-            //第二次循环会进入这个判断内，这个node就是t2被包装成node的那个节点，也就是前边提到的node-1
-            //然后node-1的前一个就是node-0,再次通过cas操作把tail赋值为node-1，node-0的下一个就是node-1，FairSync对象就有了一个链表，
+            //第二次循环会进入这个判断内，这个node就是node-1
+            //然后node-1的前一个就是node-0,再次通过cas操作把tail设为node-1，node-0的下一个就是node-1，FairSync对象就有了一个链表，
                 node.prev = t;
                 if (compareAndSetTail(t, node)) {
                     t.next = node;
