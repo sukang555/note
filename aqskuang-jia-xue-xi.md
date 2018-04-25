@@ -224,13 +224,13 @@ private Node enq(final Node node) {
         }
 }
 
-//T2线程将addWaiter返回的node-1传入这里，arg=1
+    //T2线程将addWaiter返回的node-1传入这里，arg=1
 final boolean acquireQueued(final Node node, int arg) {
         boolean failed = true;
         try {
             boolean interrupted = false;
 
-            //这里node.predecessor()将node的前一个返回，这里的值为 node-0，此时head == node-0
+            //这里node.predecessor()将node的前一个返回,p为Node-0;
 
             for (;;) {
                 final Node p = node.predecessor();
