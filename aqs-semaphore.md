@@ -73,7 +73,26 @@ private void doAcquireSharedInterruptibly(int arg)
  }
 
 
+2.我们看释放资源操作
+public final boolean releaseShared(int arg) {
+        if (tryReleaseShared(arg)) {
+            doReleaseShared();
+            return true;
+        }
+        return false;
+}
 
+//CAS将资源的值加一操作
+ protected final boolean tryReleaseShared(int releases) {
+            for (;;) {
+                int current = getState();
+                int next = current + releases;
+                if (next < current) // overflow
+                    throw new Error("Maximum permit count exceeded");
+                if (compareAndSetState(current, next))
+                    return true;
+            }
+}
 
 
 
