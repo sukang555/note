@@ -20,19 +20,17 @@
 
 ![](/assets/logback.png)
 
-
-
 ![](/assets/logback.configuration.png)
-
-
 
 appender的属性
 
-    1.name指定&lt;appender&gt;的名称
+```
+1.name指定&lt;appender&gt;的名称
 
-    2.class指定&lt;appender&gt;的全限定名
 
 
+2.class指定&lt;appender&gt;的全限定名
+```
 
 
 
