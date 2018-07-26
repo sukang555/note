@@ -113,6 +113,16 @@ public class ThreadNotifyTest{
     *这种方式的问题在于自旋非常耗费CPU资源，当然如果在自旋的代码块里加入Thread.sleep(time)
     *将会减轻CPU资源的消耗，但是如果time设的太大，A线程就不能及时响应condition的变化，如果设的太小，
     *依然会造成CPU的消耗,因此我们可以改进通过notyfy来.
+    
+    
+    *
+    *
+    *notifyAll：使所有获取过本锁对象的等待的线程统统退出wait的状态:
+    *
+    *notyfy :notify则文明得多他只是选择一个wait状态线程进行通知，并使它获得该对象上的锁，
+    但不惊动其他同样在等待被该对象notify的线程
+    *此时其它在等待队列的线程还是处于等待状态
+    *
     /
 
     @Test
