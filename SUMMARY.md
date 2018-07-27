@@ -1,6 +1,6 @@
 # Summary
 
-* [Java.Current.Util学习笔记](README.md)
+* [Java.Current.Util笔记](README.md)
   * [AQS-ReentrantLock](aqskuang-jia-xue-xi.md)
   * [AQS-Condition](aqs-condition.md)
   * [AQS-CountDownLatch](aqs-countdownlantch.md)
