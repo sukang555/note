@@ -329,12 +329,26 @@ final Node<K,V>[] resize() {
 
 ![](/assets/hash.png)
 
-```
+```java
 这里解释一下为什么我们选取数组的长度时选择2的正次幂，因为数组的长度 -1 相当于一个低位掩码，
 高位全部为0，低位全部为1.  
 相当于保留hash的低位，计算后用来作为数组的下标。因此为了减少碰撞低位尽可能随机。
 
 获取hash的值以后，拿高16位和原始的低16位做异或运算，结果是高16位保持不变，低16位也有了高16位的特征。
+
+    private static final int tableSizeFor(int c) {
+        int n = c - 1;
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+        return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+    }
+
+
+
+
 ```
 
 2.在进行除了首次以外的扩容方法时
