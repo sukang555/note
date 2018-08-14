@@ -112,7 +112,7 @@ public class ThreadNotifyTest{
     *最简单的实现方法就是将condition设为一个volatile的变量当A线程检测到条件不满足时就自旋
     *这种方式的问题在于自旋非常耗费CPU资源，当然如果在自旋的代码块里加入Thread.sleep(time)
     *将会减轻CPU资源的消耗，但是如果time设的太大，A线程就不能及时响应condition的变化，如果设的太小，
-    *依然会造成CPU的消耗,因此我们可以改进通过notyfy来.
+    *依然会造成CPU的消耗,因此我们可以改进通过notify来.
     
     
     *
@@ -146,8 +146,30 @@ public class ThreadNotifyTest{
 }
 
 //接下来我们看看Condition的实现源码
-
-
+    
+     public final void await() throws InterruptedException {
+            if (Thread.interrupted())
+                throw new InterruptedException();
+            //调用await的线程，首先进入addConditionWaiter方法
+            Node node = addConditionWaiter();
+            //
+            int savedState = fullyRelease(node);
+            int interruptMode = 0;
+            while (!isOnSyncQueue(node)) {
+                LockSupport.park(this);
+                if ((interruptMode = checkInterruptWhileWaiting(node)) != 0)
+                    break;
+            }
+            if (acquireQueued(node, savedState) && interruptMode != THROW_IE)
+                interruptMode = REINTERRUPT;
+            if (node.nextWaiter != null) // clean up if cancelled
+                unlinkCancelledWaiters();
+            if (interruptMode != 0)
+                reportInterruptAfterWait(interruptMode);
+        }
+        
+        
+    
 
 
 
