@@ -11,7 +11,7 @@ public class ThreadNotifyTest{
     private static  volatile int num = 0;
 
     private static Object lock = new Object();
-    
+
     private static ReentrantLock reentrantLock = new ReentrantLock(true);
     private static Condition condition = reentrantLock.newCondition();
 
@@ -55,10 +55,10 @@ public class ThreadNotifyTest{
         //释放锁，然后让_WaitSet队列的线程再次获取锁
         reentrantLock.unlock();
     }
-    
-    
-    
-    
+
+
+
+
     /**
     *这种方式是通过Object的wait方法和notify方法来实现的
     *wait()、notify()是和synchronized配合使用的，因此如果使用了显示锁Lock，就不能用了。
@@ -113,8 +113,8 @@ public class ThreadNotifyTest{
     *这种方式的问题在于自旋非常耗费CPU资源，当然如果在自旋的代码块里加入Thread.sleep(time)
     *将会减轻CPU资源的消耗，但是如果time设的太大，A线程就不能及时响应condition的变化，如果设的太小，
     *依然会造成CPU的消耗,因此我们可以改进通过notify来.
-    
-    
+
+
     *
     *
     *notifyAll：使所有获取过本锁对象的等待的线程统统退出wait的状态:
@@ -144,9 +144,15 @@ public class ThreadNotifyTest{
 
     }
 }
+```
+
+
+
+![](/assets/ConditionObject.png)
 
 //接下来我们看看Condition的实现源码
-    
+
+```java
      public final void await() throws InterruptedException {
             if (Thread.interrupted())
                 throw new InterruptedException();
@@ -167,23 +173,6 @@ public class ThreadNotifyTest{
             if (interruptMode != 0)
                 reportInterruptAfterWait(interruptMode);
         }
-        
-        
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```
 
 
