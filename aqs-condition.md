@@ -173,6 +173,26 @@ public class ThreadNotifyTest{
             if (interruptMode != 0)
                 reportInterruptAfterWait(interruptMode);
         }
+        
+    private Node addConditionWaiter() {
+            Node t = lastWaiter;
+            // If lastWaiter is cancelled, clean out.
+            if (t != null && t.waitStatus != Node.CONDITION) {
+                unlinkCancelledWaiters();
+                t = lastWaiter;
+            }
+            Node node = new Node(Thread.currentThread(), Node.CONDITION);
+            if (t == null)
+                firstWaiter = node;
+            else
+                t.nextWaiter = node;
+            lastWaiter = node;
+            return node;
+        }
+        
+    
+        
+        
 ```
 
 
