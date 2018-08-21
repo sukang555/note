@@ -196,7 +196,7 @@ public class ThreadNotifyTest{
                 unlinkCancelledWaiters();
                 t = lastWaiter;
             }
-            //将当前线程包装成Node对象添加到队列尾部
+            //将当前线程包装成Node对象添加到队列尾部，node状态为-2
             Node node = new Node(Thread.currentThread(), Node.CONDITION);
             if (t == null)
                 firstWaiter = node;
@@ -253,6 +253,9 @@ public class ThreadNotifyTest{
             setState(c);
             return free;
         }
+        
+        
+        
         
         
 //接下来看通知代码
