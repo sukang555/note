@@ -191,11 +191,12 @@ public class ThreadNotifyTest{
         
     private Node addConditionWaiter() {
             Node t = lastWaiter;
-            // If lastWaiter is cancelled, clean out.
+            // 如果队列的尾部状态不是-2的话就将该Node从等待队列移除。
             if (t != null && t.waitStatus != Node.CONDITION) {
                 unlinkCancelledWaiters();
                 t = lastWaiter;
             }
+            //将当前线程包装成Node对象添加到队列尾部
             Node node = new Node(Thread.currentThread(), Node.CONDITION);
             if (t == null)
                 firstWaiter = node;
