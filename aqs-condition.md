@@ -176,7 +176,7 @@ public class ThreadNotifyTest{
             //这里将线程获取的锁完全释放
             int savedState = fullyRelease(node);
             
-            //
+            //判断当前线程是否还在wait队列中，如果不存在就挂起线程
             int interruptMode = 0;
             while (!isOnSyncQueue(node)) {
                 LockSupport.park(this);
