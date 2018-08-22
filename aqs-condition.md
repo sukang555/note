@@ -173,8 +173,10 @@ public class ThreadNotifyTest{
                 throw new InterruptedException();
             //调用await的线程，首先进入addConditionWaiter方法
             Node node = addConditionWaiter();
-            //
+            //这里将线程获取的锁完全释放
             int savedState = fullyRelease(node);
+            
+            //
             int interruptMode = 0;
             while (!isOnSyncQueue(node)) {
                 LockSupport.park(this);
