@@ -268,7 +268,9 @@ public class ThreadNotifyTest{
             if (first != null)
                 doSignal(first);
         }
+      
         
+      //  
       private void doSignal(Node first) {
             do {
                 if ( (firstWaiter = first.nextWaiter) == null)
