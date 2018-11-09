@@ -18,5 +18,10 @@
     * [AQS-Condition](aqs-condition.md)
     * [AQS-CountDownLatch](aqs-countdownlantch.md)
     * [AQS-Semaphore](aqs-semaphore.md)
+  * [LeetCode](leetcode.md)
+    * [数组](leetcode/shu-zu.md)
+    * [链表](leetcode/lian-biao.md)
+    * [栈&队列](leetcode/680826-dui-lie.md)
+    * [Hash](leetcode/hash.md)
 * [LogBack配置文件](logback.md)
 
