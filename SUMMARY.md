@@ -23,5 +23,7 @@
     * [链表](leetcode/lian-biao.md)
     * [栈&队列](leetcode/680826-dui-lie.md)
     * [Hash](leetcode/hash.md)
+  * [Nginx](nginx.md)
+    * [location匹配规则](nginx/locationpi-pei-gui-ze.md)
 * [LogBack配置文件](logback.md)
 
