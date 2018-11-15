@@ -84,10 +84,30 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
                 
             
             ```
+        
+            ```
+                location ^~ / {
+			deny all;
+                }
+
+                location  /hello {
+		       deny all;
+                }
+                
+                location ~ \.html$ {
+                    root   html;
+                    allow all;
+                }
+                
+                
+                
+            ```
+        
+        
+          
 
 
-
-
+            
 
 
 
