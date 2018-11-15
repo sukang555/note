@@ -56,6 +56,7 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
              
              http://127.0.0.1:8080/           403 Forbidden
              http://127.0.0.1:8080/index.html 403 Forbidden
+             http://127.0.0.1:8080/indx.html  403 Forbidden
 
 
              
