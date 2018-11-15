@@ -108,7 +108,25 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
                 
             ```
         
-        
+            ```
+                    location ^~ / {
+			deny all;
+		    }
+
+                    location  /hello/index.html {
+			root   html;
+                       allow all;
+                    }
+		
+		    location /hello  {
+			root   html;
+                       index  index.html index.htm;
+		    }
+		
+		
+		
+            
+            ```
           
 
 
