@@ -80,7 +80,7 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
              http://127.0.0.1:8080/index.html  Welcome to nginx!
              http://127.0.0.1:8080/indx.html  404 Not Found
 
-
+            这次L1用=修饰  只有第一个url完全匹配L1，第二个和第三个不满足完全匹配因此还会搜索正则匹配；
                 
             
             ```
