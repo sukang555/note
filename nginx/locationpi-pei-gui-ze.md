@@ -42,7 +42,20 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
          
          ```
 
-
+         ```
+             L1:
+             location ^~ / {
+			deny all;
+             }
+             
+             L2:
+             location ~ \.html$ {
+                 root html;
+                 allow all;
+             }
+             
+         
+         ```
 
 
 
