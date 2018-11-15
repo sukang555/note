@@ -20,6 +20,18 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
 
 测试：
 
+         ```
+         location / {
+	    deny all;
+         }
+		
+	 location ~ \.html$ {
+            root   html;
+            allow all;
+         }
+         ```
+
+
 
 
 
