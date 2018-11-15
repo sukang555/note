@@ -64,7 +64,26 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
          ```
 
 
+            ```
+             L1:
+             location = / {
+			deny all;
+             }
+             
+             L2:
+             location ~ \.html$ {
+                 root html;
+                 allow all;
+             }
+             
+             http://127.0.0.1:8080/           403 Forbidden
+             http://127.0.0.1:8080/index.html  Welcome to nginx!
+             http://127.0.0.1:8080/indx.html  404 Not Found
 
+
+                
+            
+            ```
 
 
 
