@@ -120,7 +120,7 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
 		
 		    location /hello  {
 			root   html;
-                       index  index.html index.htm;
+                       deny all;
 		    }
 		
 		http://127.0.0.1:8080/  403
