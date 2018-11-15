@@ -104,7 +104,9 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
                 http://127.0.0.1:8080/index.html  403 
                 http://127.0.0.1:8080/hello/index.html  404
                 
+                第一个和第二个url都在普通location中找到了L1 并且L1 用了^~ 修饰 不再去匹配正则location
                 
+                第三个url先命中L2,L2没有任何修饰，然后再去匹配正则location
             ```
         
             ```
@@ -125,9 +127,13 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
 		http://127.0.0.1:8080/  403
 		http://127.0.0.1:8080/index.html  403
 		http://127.0.0.1:8080/hello/index.html  404
-		http://127.0.0.1:8080/hello  403            
+		http://127.0.0.1:8080/hello  403 
+		http://127.0.0.1:8080/hello/inde.html  403
 		
-            
+               第一个和第二个url都先匹配到L1普通location 不再去匹配正则；
+               第3个url精确匹配到L2
+               第4个url精确匹配到L3
+               第5个url最左前缀命中到L3
             ```
           
 
