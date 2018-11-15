@@ -91,7 +91,8 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
                 }
 
                 location  /hello {
-		       deny all;
+		       root   html;
+                      allow all;
                 }
                 
                 location ~ \.html$ {
@@ -99,6 +100,10 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
                     allow all;
                 }
                 
+                http://127.0.0.1:8080/            403
+                http://127.0.0.1:8080/index.html  403
+                
+                http://127.0.0.1:8080/hello/index.html  404
                 
                 
             ```
