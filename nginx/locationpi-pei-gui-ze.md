@@ -58,7 +58,7 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
              http://127.0.0.1:8080/index.html 403 Forbidden
              http://127.0.0.1:8080/indx.html  403 Forbidden
 
-
+             由于普通location L1 有^~符号 因此3个url都满足最左前缀匹配到L1，并且不会再去匹配正则；
              
          
          ```
