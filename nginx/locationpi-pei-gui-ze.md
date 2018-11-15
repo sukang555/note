@@ -21,14 +21,25 @@ location匹配规则分为普通匹配和正则匹配 语法为：location [=|~|
 测试：
 
          ```
+         L1:
          location / {
 	    deny all;
          }
-		
+	 L2:
 	 location ~ \.html$ {
             root   html;
             allow all;
          }
+         
+         http://127.0.0.1:8080/             403 Forbidden
+         http://127.0.0.1:8080/index.html   Welcome to nginx!
+         http://127.0.0.1:8080/inde.html    404 Not Found
+         
+         
+         分析： 第一个url严格精确匹配到L1 因此不会再去匹配正则 所以走L1；
+               第二个url 第一步先匹配到L1并且L1没有=或者^~符合 因此还会去匹配正则L2;
+               第三个url和第二个url同理;
+         
          ```
 
 
