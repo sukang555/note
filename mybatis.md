@@ -1,4 +1,5 @@
-
+http://www.mybatis.org/spring/zh/index.html
+http://www.mybatis.org/mybatis-3/zh/index.html
 
 ```java
     
@@ -57,6 +58,14 @@
         }
 ```
 // mybatis 运行原理以及流程
+
+```java
+
+        
+        MybatisAutoConfiguration: 该类是mybatis自动装配的配置
+    
+
+```
 
 
 
