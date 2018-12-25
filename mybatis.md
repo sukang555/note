@@ -62,7 +62,19 @@ http://www.mybatis.org/mybatis-3/zh/index.html
 ```java
 
         
-        MybatisAutoConfiguration: 该类是mybatis自动装配的配置
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        PlatformTransactionManager txManager = new DataSourceTransactionManager(dataSource);
+
+        TransactionStatus status = txManager.getTransaction(def);
+        try {
+            //get jdbc connection...
+            //execute sql...
+        }
+        catch (Exception e) {
+            txManager.rollback(status);
+            throw e;
+        }
+        txManager.commit(status);
     
 
 ```
