@@ -1,6 +1,13 @@
 
 
 ```java
+    
+    private static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
+    private static final String DATA_URL = "";
+    private static final String USER_AME = "";
+    private static final String DATA_PASSWORD = "";
+    
+    
     public static void main(String[] args) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
