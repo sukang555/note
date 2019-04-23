@@ -1,0 +1,24 @@
+{
+    "plugins": [
+        "back-to-top-button",
+        "expandable-chapters-small",
+        "github",
+        "toggle-chapters",
+        "splitter",
+        "tbfed-pagefooter"
+      
+     ], 
+    "pluginsConfig": {
+        "github": {
+            "url": "https://github.com/sukang555"
+        },
+        "tbfed-pagefooter": {
+            "copyright":"Copyright &copy sukang 2017",
+            "modify_label": "该文件修订时间：",
+            "modify_format": "YYYY-MM-DD HH:mm:ss"
+        }
+    }
+}
+
+
+    
