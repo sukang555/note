@@ -148,6 +148,7 @@ public E remove(int index) {
 
 总结：ArrayList 第一次扩容的初始化大小为10,扩容策略为 旧值 + \(int\)\(旧值/2\),在使用ArratList的时候指定合适的容量可以减少扩容次数；
 
+
 第一次初始化数组长度为10;
 
 ![](/assets/vvsad.png)
@@ -155,8 +156,4 @@ public E remove(int index) {
 第一次扩容操作数组长度为15;
 
 ![](/assets/dfsdfasfa.png)
-
-
-
-
 
