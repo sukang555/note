@@ -2,7 +2,8 @@
     "plugins": [
         "back-to-top-button",
         "expandable-chapters-small",
-        "github"
+        "github",
+        "toggle-chapters"
       
      ], 
     "pluginsConfig": {
