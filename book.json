@@ -3,7 +3,8 @@
         "back-to-top-button",
         "expandable-chapters-small",
         "github",
-        "toggle-chapters"
+        "toggle-chapters",
+        "splitter"
       
      ], 
     "pluginsConfig": {
