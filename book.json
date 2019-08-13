@@ -12,6 +12,9 @@
         "copy-code-button"
      ],
     "pluginsConfig": {
+        "theme-default": {
+            "showLevel": true
+        },
         "github": {
             "url": "https://github.com/sukang555"
         },
