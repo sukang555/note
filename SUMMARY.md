@@ -26,7 +26,7 @@
     * [Hash](leetcode/hash.md)
   * [Nginx](nginx.md)
     * [location匹配规则](nginx/locationpi-pei-gui-ze.md)
+  * [FrameWork](framework.md)
+    * [Mybatis](framework/mybatis.md)
 * [LogBack配置文件](logback.md)
-* [FrameWork](framework.md)
-  * [Mybatis](framework/mybatis.md)
 
