@@ -1,13 +1,16 @@
 {
     "plugins": [
+        "-lunr",
+        "-search",
+        "search-plus",
         "back-to-top-button",
         "expandable-chapters-small",
         "github",
         "toggle-chapters",
         "splitter",
-        "tbfed-pagefooter"
-      
-     ], 
+        "tbfed-pagefooter",
+        "copy-code-button"
+     ],
     "pluginsConfig": {
         "github": {
             "url": "https://github.com/sukang555"
@@ -21,4 +24,4 @@
 }
 
 
-    
+
