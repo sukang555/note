@@ -1,16 +1,14 @@
-http://www.mybatis.org/spring/zh/index.html
+[http://www.mybatis.org/spring/zh/index.html](http://www.mybatis.org/spring/zh/index.html)
 
-
-http://www.mybatis.org/mybatis-3/zh/index.html
+[http://www.mybatis.org/mybatis-3/zh/index.html](http://www.mybatis.org/mybatis-3/zh/index.html)
 
 ```java
-    
     private static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
     private static final String DATA_URL = "";
     private static final String USER_AME = "";
     private static final String DATA_PASSWORD = "";
-    
-    
+
+
     public static void main(String[] args) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -59,11 +57,10 @@ http://www.mybatis.org/mybatis-3/zh/index.html
             }
         }
 ```
+
 // mybatis 运行原理以及流程
 
 ```java
-
-        
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         PlatformTransactionManager txManager = new DataSourceTransactionManager(dataSource);
 
@@ -77,25 +74,7 @@ http://www.mybatis.org/mybatis-3/zh/index.html
             throw e;
         }
         txManager.commit(status);
-    
-
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
