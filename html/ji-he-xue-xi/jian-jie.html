@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>Stack · GitBook</title>
+        <title>简介 · GitBook</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -77,10 +77,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="quene.html" />
+    <link rel="next" href="collection.html" />
     
     
-    <link rel="prev" href="linkedlist.html" />
+    <link rel="prev" href="../ji-he-xue-xi.html" />
     
 
     </head>
@@ -137,7 +137,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.1.1.1" data-path="jian-jie.html">
+        <li class="chapter active" data-level="1.1.1.1" data-path="jian-jie.html">
             
                 <a href="jian-jie.html">
             
@@ -275,7 +275,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.1.1.2.2.4" data-path="stack.html">
+        <li class="chapter " data-level="1.1.1.2.2.4" data-path="stack.html">
             
                 <a href="stack.html">
             
@@ -692,7 +692,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Stack</a>
+        <a href=".." >简介</a>
     </h1>
 </div>
 
@@ -707,130 +707,8 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <pre><code class="lang-java">Stack&lt;E&gt; extends Vector&lt;E&gt;
-
-Stack &#x662F;&#x96C6;&#x6210;&#x81EA;Vector;&#x56E0;&#x6B64;&#x5B83;&#x5177;&#x6709;Vector&#x7684;&#x5168;&#x90E8;&#x5C5E;&#x6027;;
-
-
-<span class="hljs-meta">@Test</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main1</span><span class="hljs-params">()</span></span>{
-    Stack&lt;Object&gt; stack = <span class="hljs-keyword">new</span> Stack&lt;&gt;();
-
-    <span class="hljs-comment">//&#x5411;&#x6808;&#x4E2D;&#x538B;&#x5165;&#x5143;&#x7D20;</span>
-    stack.push(<span class="hljs-string">&quot;AA&quot;</span>);
-    stack.push(<span class="hljs-string">&quot;BB&quot;</span>);
-    stack.push(<span class="hljs-string">&quot;CC&quot;</span>);
-    <span class="hljs-comment">//peek&#x51FD;&#x6570;&#x662F;&#x4ECE;&#x67E5;&#x770B;&#x6808;&#x9876;&#x5143;&#x7D20;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x5220;&#x9664;</span>
-    System.out.println(stack.peek());<span class="hljs-comment">//CC</span>
-    <span class="hljs-comment">//pop&#x51FD;&#x6570;&#x662F;&#x79FB;&#x9664;&#x5E76;&#x83B7;&#x53D6;&#x5230;&#x6808;&#x9876;&#x5143;&#x7D20;</span>
-    <span class="hljs-comment">//search&#x662F;&#x67E5;&#x627E;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x5728;Stack&#x4E2D;&#x7684;index</span>
-    System.out.println(stack.search(<span class="hljs-string">&quot;CC&quot;</span>));<span class="hljs-comment">//1</span>
-}
-
-
-<span class="hljs-comment">//&#x5411;&#x6808;&#x5185;&#x6DFB;&#x52A0;&#x5143;&#x7D20;</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> E <span class="hljs-title">push</span><span class="hljs-params">(E item)</span> </span>{
-        addElement(item);
-
-        <span class="hljs-keyword">return</span> item;
-}
-
-
-<span class="hljs-comment">//&#x521D;&#x59CB;&#x5316;&#x5B8C;elementCount&#x7684;&#x503C;0;</span>
- <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addElement</span><span class="hljs-params">(E obj)</span> </span>{
-        modCount++;
-        ensureCapacityHelper(elementCount + <span class="hljs-number">1</span>);
-        elementData[elementCount++] = obj;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ensureCapacityHelper</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minCapacity)</span> </span>{
-        <span class="hljs-comment">// &#x5982;&#x679C;&#x5B8C;&#x6210;&#x672C;&#x6B21;push&#x6240;&#x9700;&#x7684;&#x7A7A;&#x95F4;&#x5C0F;&#x4E8E;&#x5B58;&#x653E;&#x5143;&#x7D20;&#x6570;&#x7EC4;&#x7684;&#x957F;&#x5EA6;&#x5C31;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x6269;&#x5BB9;</span>
-        <span class="hljs-keyword">if</span> (minCapacity - elementData.length &gt; <span class="hljs-number">0</span>)
-            grow(minCapacity);
-}
-
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">grow</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minCapacity)</span> </span>{
-        <span class="hljs-comment">// overflow-conscious code</span>
-        <span class="hljs-keyword">int</span> oldCapacity = elementData.length;
-        <span class="hljs-keyword">int</span> newCapacity = oldCapacity + ((capacityIncrement &gt; <span class="hljs-number">0</span>) ?
-                                         capacityIncrement : oldCapacity);
-        <span class="hljs-keyword">if</span> (newCapacity - minCapacity &lt; <span class="hljs-number">0</span>)
-            newCapacity = minCapacity;
-        <span class="hljs-keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="hljs-number">0</span>)
-            newCapacity = hugeCapacity(minCapacity);
-        elementData = Arrays.copyOf(elementData, newCapacity);
-}
-
-
-
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> E <span class="hljs-title">peek</span><span class="hljs-params">()</span> </span>{
-        <span class="hljs-comment">//&#x83B7;&#x53D6;&#x5143;&#x7D20;&#x7684;&#x6570;&#x91CF;;</span>
-        <span class="hljs-keyword">int</span> len = size();
-
-        <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>)
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> EmptyStackException();
-        <span class="hljs-comment">//&#x6808;&#x9876;&#x7684;&#x5143;&#x7D20;&#x7684;&#x7D22;&#x5F15;&#x4E5F;&#x5C31;&#x662F;&#x5143;&#x7D20;&#x6570;&#x91CF;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x503C;-1</span>
-        <span class="hljs-keyword">return</span> elementAt(len - <span class="hljs-number">1</span>);
-}
-
- <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">int</span> <span class="hljs-title">search</span><span class="hljs-params">(Object o)</span> </span>{
-      <span class="hljs-comment">//&#x83B7;&#x53D6;&#x5143;&#x7D20;&#x7684;&#x7D22;&#x5F15;&#xFF0C;&#x4F8B;&#x5B50;&#x4E2D;CC&#x7684;&#x7D22;&#x5F15;&#x4E3A;2&#xFF0C;size&#x662F;&#x5143;&#x7D20;&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x6240;&#x4EE5;&#x7ED3;&#x679C;&#x4E3A;1;&#x4E5F;&#x5C31;&#x8BF4;&#x660E;Stack&#x7684;&#x5143;&#x7D20;&#x6808;&#x9876;&#x662F;1&#xFF0C;&#x6808;&#x5E95;&#x7684;&#x7D22;&#x5F15;&#x662F;&#x5143;&#x7D20;&#x7684;&#x6570;&#x91CF;&#xFF1B;</span>
-        <span class="hljs-keyword">int</span> i = lastIndexOf(o);
-
-        <span class="hljs-keyword">if</span> (i &gt;= <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> size() - i;
-        }
-        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
-}
-
-
-
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> E <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>{
-        E       obj;
-        <span class="hljs-comment">// &#x83B7;&#x53D6;&#x5143;&#x7D20;&#x6570;&#x91CF;</span>
-        <span class="hljs-keyword">int</span>     len = size();
-        <span class="hljs-comment">//&#x83B7;&#x53D6;&#x6808;&#x9876;&#x5143;&#x7D20;</span>
-        obj = peek();
-
-        &#x79FB;&#x9664;&#x6307;&#x5B9A;&#x7D22;&#x5F15;&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x4E00;&#x822C;&#x5C31;&#x662F;&#x6570;&#x7EC4;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x5143;&#x7D20;
-        removeElementAt(len - <span class="hljs-number">1</span>);
-
-        <span class="hljs-keyword">return</span> obj;
-}
-
-
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title">removeElementAt</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index)</span> </span>{
-        modCount++;
-        <span class="hljs-keyword">if</span> (index &gt;= elementCount) {
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArrayIndexOutOfBoundsException(index + <span class="hljs-string">&quot; &gt;= &quot;</span> +
-                                                     elementCount);
-        }
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArrayIndexOutOfBoundsException(index);
-        }
-
-
-        <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x8BA1;&#x7B97;j&#x7684;&#x503C;&#xFF0C;&#x6211;&#x4EEC;pop&#x7684;&#x8BDD;&#x5E94;&#x8BE5;&#x662F;&#x79FB;&#x9664;&#x6570;&#x7EC4;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;j&#x4E3A;0;</span>
-
-        <span class="hljs-keyword">int</span> j = elementCount - index - <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">if</span> (j &gt; <span class="hljs-number">0</span>) {
-            System.arraycopy(elementData, index + <span class="hljs-number">1</span>, elementData, index, j);
-        }
-        elementCount--;
-        elementData[elementCount] = <span class="hljs-keyword">null</span>; <span class="hljs-comment">/* to let gc do its work */</span>
-}
-
-
-
-
-
-
-
-
-
-</code></pre>
-<footer class="page-footer"><span class="copyright">Copyright &#xA9; sukang 2017 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x8BE5;&#x6587;&#x4EF6;&#x4FEE;&#x8BA2;&#x65F6;&#x95F4;&#xFF1A;
-2018-07-25 03:13:22
+                                <footer class="page-footer"><span class="copyright">Copyright &#xA9; sukang 2017 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x8BE5;&#x6587;&#x4EF6;&#x4FEE;&#x8BA2;&#x65F6;&#x95F4;&#xFF1A;
+2020-06-07 11:20:38
 </span></footer>
 
 
@@ -860,12 +738,12 @@ Stack &#x662F;&#x96C6;&#x6210;&#x81EA;Vector;&#x56E0;&#x6B64;&#x5B83;&#x5177;&#x
 
             
                 
-                <a href="linkedlist.html" class="navigation navigation-prev " aria-label="Previous page: LinkedList">
+                <a href="../ji-he-xue-xi.html" class="navigation navigation-prev " aria-label="Previous page: 1.1 集合框架">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="quene.html" class="navigation navigation-next " aria-label="Next page: Quene">
+                <a href="collection.html" class="navigation navigation-next " aria-label="Next page: Collection">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -876,7 +754,7 @@ Stack &#x662F;&#x96C6;&#x6210;&#x81EA;Vector;&#x56E0;&#x6B64;&#x5B83;&#x5177;&#x
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Stack","level":"1.1.1.2.2.4","depth":5,"next":{"title":"Quene","level":"1.1.1.2.3","depth":4,"path":"ji-he-xue-xi/quene.md","ref":"ji-he-xue-xi/quene.md","articles":[{"title":"简介","level":"1.1.1.2.3.1","depth":5,"path":"ji-he-xue-xi/quene/jian-jie.md","ref":"ji-he-xue-xi/quene/jian-jie.md","articles":[]}]},"previous":{"title":"LinkedList","level":"1.1.1.2.2.3","depth":5,"path":"ji-he-xue-xi/linkedlist.md","ref":"ji-he-xue-xi/linkedlist.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-lunr","-search","search-plus","back-to-top-button","expandable-chapters-small","github","toggle-chapters","splitter","tbfed-pagefooter","copy-code-button"],"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright &copy sukang 2017","modify_label":"该文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"github":{"url":"https://github.com/sukang555"},"splitter":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{},"search-plus":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"ji-he-xue-xi/stack.md","mtime":"2018-07-25T03:13:22.743Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2020-06-07T11:21:05.488Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"简介","level":"1.1.1.1","depth":3,"next":{"title":"Collection","level":"1.1.1.2","depth":3,"path":"ji-he-xue-xi/collection.md","ref":"ji-he-xue-xi/collection.md","articles":[{"title":"Set","level":"1.1.1.2.1","depth":4,"path":"ji-he-xue-xi/set.md","ref":"ji-he-xue-xi/set.md","articles":[{"title":"HashSet","level":"1.1.1.2.1.1","depth":5,"path":"ji-he-xue-xi/set/hashset.md","ref":"ji-he-xue-xi/set/hashset.md","articles":[]},{"title":"TreeSet","level":"1.1.1.2.1.2","depth":5,"path":"ji-he-xue-xi/set/treeset.md","ref":"ji-he-xue-xi/set/treeset.md","articles":[]},{"title":"LinkedHashSet","level":"1.1.1.2.1.3","depth":5,"path":"ji-he-xue-xi/set/linkedhashset.md","ref":"ji-he-xue-xi/set/linkedhashset.md","articles":[]}]},{"title":"List","level":"1.1.1.2.2","depth":4,"path":"ji-he-xue-xi/list.md","ref":"ji-he-xue-xi/list.md","articles":[{"title":"Vector","level":"1.1.1.2.2.1","depth":5,"path":"ji-he-xue-xi/vector.md","ref":"ji-he-xue-xi/vector.md","articles":[]},{"title":"ArrayList","level":"1.1.1.2.2.2","depth":5,"path":"ji-he-xue-xi/arraylist.md","ref":"ji-he-xue-xi/arraylist.md","articles":[]},{"title":"LinkedList","level":"1.1.1.2.2.3","depth":5,"path":"ji-he-xue-xi/linkedlist.md","ref":"ji-he-xue-xi/linkedlist.md","articles":[]},{"title":"Stack","level":"1.1.1.2.2.4","depth":5,"path":"ji-he-xue-xi/stack.md","ref":"ji-he-xue-xi/stack.md","articles":[]}]},{"title":"Quene","level":"1.1.1.2.3","depth":4,"path":"ji-he-xue-xi/quene.md","ref":"ji-he-xue-xi/quene.md","articles":[{"title":"简介","level":"1.1.1.2.3.1","depth":5,"path":"ji-he-xue-xi/quene/jian-jie.md","ref":"ji-he-xue-xi/quene/jian-jie.md","articles":[]}]}]},"previous":{"title":"1.1 集合框架","level":"1.1.1","depth":2,"path":"ji-he-xue-xi.md","ref":"ji-he-xue-xi.md","articles":[{"title":"简介","level":"1.1.1.1","depth":3,"path":"ji-he-xue-xi/jian-jie.md","ref":"ji-he-xue-xi/jian-jie.md","articles":[]},{"title":"Collection","level":"1.1.1.2","depth":3,"path":"ji-he-xue-xi/collection.md","ref":"ji-he-xue-xi/collection.md","articles":[{"title":"Set","level":"1.1.1.2.1","depth":4,"path":"ji-he-xue-xi/set.md","ref":"ji-he-xue-xi/set.md","articles":[{"title":"HashSet","level":"1.1.1.2.1.1","depth":5,"path":"ji-he-xue-xi/set/hashset.md","ref":"ji-he-xue-xi/set/hashset.md","articles":[]},{"title":"TreeSet","level":"1.1.1.2.1.2","depth":5,"path":"ji-he-xue-xi/set/treeset.md","ref":"ji-he-xue-xi/set/treeset.md","articles":[]},{"title":"LinkedHashSet","level":"1.1.1.2.1.3","depth":5,"path":"ji-he-xue-xi/set/linkedhashset.md","ref":"ji-he-xue-xi/set/linkedhashset.md","articles":[]}]},{"title":"List","level":"1.1.1.2.2","depth":4,"path":"ji-he-xue-xi/list.md","ref":"ji-he-xue-xi/list.md","articles":[{"title":"Vector","level":"1.1.1.2.2.1","depth":5,"path":"ji-he-xue-xi/vector.md","ref":"ji-he-xue-xi/vector.md","articles":[]},{"title":"ArrayList","level":"1.1.1.2.2.2","depth":5,"path":"ji-he-xue-xi/arraylist.md","ref":"ji-he-xue-xi/arraylist.md","articles":[]},{"title":"LinkedList","level":"1.1.1.2.2.3","depth":5,"path":"ji-he-xue-xi/linkedlist.md","ref":"ji-he-xue-xi/linkedlist.md","articles":[]},{"title":"Stack","level":"1.1.1.2.2.4","depth":5,"path":"ji-he-xue-xi/stack.md","ref":"ji-he-xue-xi/stack.md","articles":[]}]},{"title":"Quene","level":"1.1.1.2.3","depth":4,"path":"ji-he-xue-xi/quene.md","ref":"ji-he-xue-xi/quene.md","articles":[{"title":"简介","level":"1.1.1.2.3.1","depth":5,"path":"ji-he-xue-xi/quene/jian-jie.md","ref":"ji-he-xue-xi/quene/jian-jie.md","articles":[]}]}]},{"title":"Map","level":"1.1.1.3","depth":3,"path":"ji-he-xue-xi/map.md","ref":"ji-he-xue-xi/map.md","articles":[{"title":"HashMap","level":"1.1.1.3.1","depth":4,"path":"ji-he-xue-xi/map/hashmap.md","ref":"ji-he-xue-xi/map/hashmap.md","articles":[]},{"title":"LinkedHashMap","level":"1.1.1.3.2","depth":4,"path":"ji-he-xue-xi/map/linkedhashmap.md","ref":"ji-he-xue-xi/map/linkedhashmap.md","articles":[]},{"title":"CurrentHashMap","level":"1.1.1.3.3","depth":4,"path":"ji-he-xue-xi/map/currenthashmap.md","ref":"ji-he-xue-xi/map/currenthashmap.md","articles":[]},{"title":"红黑树","level":"1.1.1.3.4","depth":4,"path":"ji-he-xue-xi/map/hong-hei-shu.md","ref":"ji-he-xue-xi/map/hong-hei-shu.md","articles":[]},{"title":"TreeMap","level":"1.1.1.3.5","depth":4,"path":"ji-he-xue-xi/map/treemap.md","ref":"ji-he-xue-xi/map/treemap.md","articles":[]}]}]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["-lunr","-search","search-plus","back-to-top-button","expandable-chapters-small","github","toggle-chapters","splitter","tbfed-pagefooter","copy-code-button"],"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright &copy sukang 2017","modify_label":"该文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"github":{"url":"https://github.com/sukang555"},"splitter":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{},"search-plus":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"ji-he-xue-xi/jian-jie.md","mtime":"2020-06-07T11:20:38.491Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2020-06-07T11:21:05.488Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
