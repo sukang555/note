@@ -9,9 +9,16 @@
         "toggle-chapters",
         "splitter",
         "tbfed-pagefooter",
-        "copy-code-button"
+        "copy-code-button",
+        "plugins": ["icp"]
      ],
     "pluginsConfig": {
+    
+        "icp": {
+            "number": "京ICP备20020401号",
+            "link":"http://www.beian.miit.gov.cn/"
+        }
+
         "github": {
             "url": "https://github.com/sukang555"
         },
