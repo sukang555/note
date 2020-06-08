@@ -10,19 +10,19 @@
         "splitter",
         "tbfed-pagefooter",
         "copy-code-button",
-        "plugins": ["icp"]
+        "icp"
      ],
     "pluginsConfig": {
     
-        "icp": {
+        "icp":{
             "number": "京ICP备20020401号",
             "link":"http://www.beian.miit.gov.cn/"
         }
 
-        "github": {
+        "github":{
             "url": "https://github.com/sukang555"
         },
-        "tbfed-pagefooter": {
+        "tbfed-pagefooter":{
             "copyright":"Copyright &copy sukang 2017",
             "modify_label": "该文件修订时间：",
             "modify_format": "YYYY-MM-DD HH:mm:ss"
